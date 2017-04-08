@@ -11189,31 +11189,9 @@ process.umask = function() { return 0; };
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {__webpack_require__(31);
 
-/** 
+/**
  * Simple JS router
 **/
-var path = window.location.pathname;
-
-routes = {
-	register: '/register',
-	screeningTest: '/screening-test',
-	home: ['/home', '/'],
-	profileSetup: '/profile-setup',
-	archive: '/archive'
-};
-
-switch (path) {
-	case routes.register:
-		__webpack_require__(36);break;
-	case routes.screeningTest:
-		__webpack_require__(37);break;
-	case routes.home[1]:
-		__webpack_require__(8);break;
-	case routes.home[0]:
-		__webpack_require__(8);break;
-	case routes.profileSetup:
-		__webpack_require__(33);break;
-}
 
 if (jQuery.trim(path).substring(0, path.length - 2) == '/week' || jQuery.trim(path).substring(0, path.length - 3) == '/week') {
 	__webpack_require__(38);
@@ -13709,11 +13687,11 @@ for (var func in conversions) {
   // export rgb2hsl and ["rgb"]["hsl"]
   convert[from] = convert[from] || {};
 
-  convert[from][to] = convert[func] = (function(func) { 
+  convert[from][to] = convert[func] = (function(func) {
     return function(arg) {
       if (typeof arg == "number")
         arg = Array.prototype.slice.call(arguments);
-      
+
       var val = conversions[func](arg);
       if (typeof val == "string" || val === undefined)
         return val; // keyword
@@ -13741,12 +13719,12 @@ Converter.prototype.routeSpace = function(space, args) {
    }
    // color.rgb(10, 10, 10)
    if (typeof values == "number") {
-      values = Array.prototype.slice.call(args);        
+      values = Array.prototype.slice.call(args);
    }
 
    return this.setValues(space, values);
 };
-  
+
 /* Set the values for a space, invalidating cache */
 Converter.prototype.setValues = function(space, values) {
    this.space = space;

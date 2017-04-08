@@ -1,0 +1,1 @@
+{{-- Extract flash messages into this template --}}
