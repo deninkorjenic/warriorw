@@ -10,7 +10,7 @@
 
     <a href="{{ url('/tasks') . '/' . $task->id . '/edit' }}" class="btn">Edit Task</a>
 
-    <a href="#" class="btn js-delete">Delete</a>
+    <a href="#" id="tasks" data-id="{{ $task->id }}" data-token="{{ csrf_token() }}" class="btn js-delete">Delete</a>
 
     </div>
 @endsection

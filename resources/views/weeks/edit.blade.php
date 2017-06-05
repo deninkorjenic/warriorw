@@ -38,6 +38,6 @@
 
             <input type="submit" class="btn">
         </form>
-        @include('errors.errors')
+        @include('messages.errors.index')
     </div>
 @endsection

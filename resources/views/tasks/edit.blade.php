@@ -14,16 +14,30 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col s6">
+                <div class="col s8">
+                    <h4>Belongs to Week: </h4>
+
+                    <ul>
+                        @foreach($weeks as $week)
+                        <li>
+                            <input
+                                    type="checkbox"
+                                    id="week-{{$week->id}}"
+                                    name="related_weeks[]"
+                                    value="{{$week->id}}"
+                                    @if ($week->isRelatedTo($task->id))
+                                        checked="checked"
+                                    @endif
+                            />
+                            <label for="week-{{$week->id}}">{{ 'Week ' . $week->week_number }}</label>
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="col s4">
                     <div class="input-field">
                         <input id="points" name="points" type="number" class="validate" value="{{ $task->points }}" required>
                         <label for="points" data-error="wrong" data-success="right">Points</label>
-                    </div>
-                </div>
-                <div class="col s6">
-                    <div class="input-field">
-                        <input id="week_number" name="week_number" type="number" class="validate" value="{{ $week_number }}" required>
-                        <label for="week_number" data-error="wrong" data-success="right">Belongs to Week number:</label>
                     </div>
                 </div>
             </div>

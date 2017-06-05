@@ -81,6 +81,7 @@ class WeekController extends Controller
         $week = Week::findOrFail($id);
 
         $this->validateWeek();
+
         $week->update(request(['title', 'description', 'week_number', 'maximum_points']));
 
         session()->flash('message', 'Week successfully updated!');
@@ -107,7 +108,7 @@ class WeekController extends Controller
         return $this->validate(request(), [
             'title' => 'string|max:255',
             'description' => 'required|string',
-            'week_number' => 'bail|required|unique:weeks|integer',
+            'week_number' => 'bail|required|integer',
             'maximum_points' => 'integer',
         ]);
     }

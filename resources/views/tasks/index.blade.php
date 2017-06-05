@@ -4,10 +4,7 @@
     <h2>Tasks overview</h2>
 
     @include('messages.errors.index')
-
-    @if (Session::has('message'))
-        <div class="card-panel teal lighten-2">{{ Session::get('message') }}</div>
-    @endif
+    @include('messages.notifications.index')
 
     <table class="striped">
         <thead>

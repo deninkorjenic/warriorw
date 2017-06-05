@@ -179,3 +179,15 @@ body.auth .wrapper-form form a {
 .text-center {
     text-align: center;
 }
+
+.close-button {
+    display: block;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    line-height: 37px;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 20px;
+    text-align: center;
+}

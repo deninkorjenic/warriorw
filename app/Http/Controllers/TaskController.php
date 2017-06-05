@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Task;
 use App\Week;
+use Illuminate\Support\Facades\Input;
 
 class TaskController extends Controller
 {
@@ -26,7 +27,8 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('tasks.create');
+        $weeks = Week::all();
+        return view('tasks.create', ['weeks' => $weeks]);
     }
 
     /**
@@ -41,12 +43,11 @@ class TaskController extends Controller
             'points' => 'integer'
         ]);
 
-        Task::create(request(['description', 'points']));
-
+        $task = Task::create(request(['description', 'points']));
+        $task->weeks()->attach(request('related_weeks'));
         session()->flash('message', 'Task successfully created');
 
-        return redirect('/home');
-
+        return redirect('/tasks');
     }
 
     /**
@@ -71,13 +72,9 @@ class TaskController extends Controller
     public function edit($id)
     {
         $task = Task::findOrFail($id);
-        // TODO: Use many to many relationship and get all weeks
-        $weeksCollection = $task->weeks;
-        $week = $weeksCollection->first();
+        $weeks = Week::all();
 
-//        $week = $weeks->first();
-
-        return view('tasks.edit', ['task' => $task, 'week_number' => $week->week_number]);
+        return view('tasks.edit', ['task' => $task, 'weeks' => $weeks, 'week_number' => '1']);
     }
 
     /**
@@ -95,11 +92,12 @@ class TaskController extends Controller
             'points' => 'integer'
         ]);
 
-        $weeks = Week::where('week_number', request('week_number'))->get();
-        $task->weeks()->attach($weeks->first()->id);
+        $relatedWeeks = Input::get('related_weeks');
+
+        $task->weeks()->sync(array_values($relatedWeeks));
         $task->update(request(['description', 'points']));
 
-        session()->flash('message', 'Tasks successfully updated');
+        session()->flash('message', 'Task successfully updated.');
 
         return redirect('/tasks');
     }
@@ -114,5 +112,6 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($id);
         $task->delete();
+        session()->flash('message', 'Task succesfully deleted.');
     }
 }

@@ -24,7 +24,7 @@ Route::post('/weeks', 'WeekController@store');
 Route::get('/weeks/{id}', 'WeekController@show');
 Route::get('/weeks/{id}/edit', 'WeekController@edit');
 Route::patch('/weeks/{id}', 'WeekController@update');
-Route::delete('/weeks/{id}', 'WeekController@delete');
+Route::delete('/weeks/{id}', 'WeekController@destroy');
 
 // Task CRUD routes
 Route::get('/tasks', 'TaskController@index');
@@ -33,4 +33,4 @@ Route::post('/tasks', 'TaskController@store');
 Route::get('/tasks/{id}', 'TaskController@show');
 Route::get('/tasks/{id}/edit', 'TaskController@edit');
 Route::patch('/tasks/{id}', 'TaskController@update');
-Route::delete('/tasks/{id}', 'TaskController@delete');
+Route::delete('/tasks/{id}', 'TaskController@destroy');
