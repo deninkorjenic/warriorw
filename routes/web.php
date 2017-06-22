@@ -1,5 +1,8 @@
 <?php
 
+// Authentication routs
+Auth::routes();
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,3 +37,10 @@ Route::get('/tasks/{id}', 'TaskController@show');
 Route::get('/tasks/{id}/edit', 'TaskController@edit');
 Route::patch('/tasks/{id}', 'TaskController@update');
 Route::delete('/tasks/{id}', 'TaskController@destroy');
+
+/**
+ * Logout
+ */
+Route::get('/logout', function() {
+    Auth::logout();
+});
