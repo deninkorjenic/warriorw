@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Task;
-use App\Week;
+use App\Models\Task;
+use App\Models\Week;
 use Illuminate\Support\Facades\Input;
 
 class TaskController extends Controller

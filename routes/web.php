@@ -37,14 +37,15 @@ Route::middleware(['auth', 'fullprofile'])->group(function() {
 
     Route::get('/week-{number}', 'ProgramController@getWeek');
     Route::get('/food-diary',   'ProgramController@getFoodDiary');
-
-    /**
-     * Logout
-     */
-    Route::get('/logout', function() {
-        Auth::logout();
-    });
 });
 
 Route::get('/profile-setup', 'ProfileController@index')->middleware('auth');
+/**
+ * Logout
+ */
+Route::get('/logout', function() {
+    Auth::logout();
+    return redirect('/home');
+})->middleware('auth');
+
 Route::post('/profile-setup', 'ProfileController@updateProfile')->middleware('auth');

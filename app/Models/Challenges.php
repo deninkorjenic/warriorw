@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,6 +20,6 @@ class Challenges extends Model
      * Set up relation with the user model
     **/
     public function user() {
-        return $this->belongsTo('\App\User', 'user_id');
+        return $this->belongsTo('\App\Models\User', 'user_id');
     }
 }

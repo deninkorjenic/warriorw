@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Week;
+use App\Models\Week;
 
 class WeekController extends Controller
 {

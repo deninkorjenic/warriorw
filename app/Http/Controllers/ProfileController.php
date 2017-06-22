@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Challenges;
-use App\ProfileHelper;
-use App\Programs;
-use App\User;
+use App\Models\Challenges;
+use App\Models\ProfileHelper;
+use App\Models\Programs;
+use App\Models\User;
 use Carbon\Carbon;
 use CountryState;
 use Illuminate\Http\Request;
+use App\Helpers\ActivityPoints;
 
 class ProfileController extends Controller
 {
@@ -211,42 +212,7 @@ class ProfileController extends Controller
     private function handleActivities($activities) {
         $points = 0;
         foreach ($activities as $k=>$a) {
-            switch ($a){
-                case 'hiking':                  $points+=1; break;
-                case 'climbing':                $points+=3; break;
-                case 'boxing and kickboxing':   $points+=4; break;
-                case 'dance':                   $points+=3; break;
-                case 'weight training':         $points+=3; break;
-                case 'bootcamp':                $points+=3; break;
-                case 'rowing or kayaking':      $points+=3; break;
-                case 'walking':                 $points+=1; break;
-                case 'aerobics':                $points+=2; break;
-                case 'swimming or diving':      $points+=2; break;
-                case 'cycling':                 $points+=2; break;
-                case 'jogging or running':      $points+=3; break;
-                case 'golf':                    $points+=1; break;
-                case 'tennis':                  $points+=2; break;
-                case 'netball':                 $points+=3; break;
-                case 'soccer':                  $points+=3; break;
-                case 'afl':                     $points+=3; break;
-                case 'rugby':                   $points+=3; break;
-                case 'hockey':                  $points+=3; break;
-                case 'squash':                  $points+=3; break;
-                case 'badminton':               $points+=3; break;
-                case 'basketball':              $points+=3; break;
-                case 'other group fitness':     $points+=3; break;
-                case 'martial arts':            $points+=3; break;
-                case 'gymnastics':              $points+=4; break;
-                case 'yoga':                    $points+=2; break;
-                case 'pilates':                 $points+=2; break;
-                case 'social':                  $points+=2; break;
-                case 'any':                     $points+=3; break;
-                case 'athletics throwing':      $points+=3; break;
-                case 'athletics jumping':       $points+=4; break;
-                case 'horse riding':            $points+=2; break;
-                case 'cricket':                 $points+=2; break;
-                case 'baseball':                $points+=2; break;
-            }
+            $points += ActivityPoints::getPoints($a);
         }
         return $points;
     }
