@@ -163,6 +163,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Skydiver\LaravelMaterializeCSS\MaterializeCSSServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        DougSisk\CountryState\CountryStateServiceProvider::class,
 
         /*
          * Package Service Providers...

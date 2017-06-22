@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Program extends Model
+class Programs extends Model
 {
     protected $fillable = ['task', 'category', 'title'];
 }

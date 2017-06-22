@@ -11193,6 +11193,8 @@ process.umask = function() { return 0; };
  * Simple JS router
 **/
 
+var path = window.location.pathname;
+
 if (jQuery.trim(path).substring(0, path.length - 2) == '/week' || jQuery.trim(path).substring(0, path.length - 3) == '/week') {
 	__webpack_require__(38);
 } else if (jQuery.trim(path).substring(0, path.length - 2) == '/quiz' || jQuery.trim(path).substring(0, path.length - 3) == '/quiz') {
@@ -45259,3 +45261,10 @@ module.exports = __webpack_require__(12);
 
 /***/ })
 /******/ ]);
+$(document).ready(function() {
+    $('select').material_select();
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 99 // Creates a dropdown of 15 years to control year
+    });
+})
