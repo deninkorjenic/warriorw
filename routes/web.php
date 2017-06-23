@@ -37,15 +37,30 @@ Route::middleware(['auth', 'fullprofile'])->group(function() {
 
     Route::get('/week-{number}', 'ProgramController@getWeek');
     Route::get('/food-diary',   'ProgramController@getFoodDiary');
+
+    Route::get('/challenges', 'ChallengesController@index');
+    Route::post('/challenges', 'ChallengesController@setUpChallenges');
 });
 
-Route::get('/profile-setup', 'ProfileController@index')->middleware('auth');
-/**
- * Logout
- */
-Route::get('/logout', function() {
-    Auth::logout();
-    return redirect('/home');
-})->middleware('auth');
-
-Route::post('/profile-setup', 'ProfileController@updateProfile')->middleware('auth');
+Route::middleware('auth')->group(function() {
+    Route::get('/profile-setup', 'ProfileController@index');
+    Route::get('/dashboard', 'AdminController@getDashboard');
+    Route::get('/archive', 'AdminController@getArchive');
+    Route::post('/profile-setup', 'ProfileController@updateProfile');
+    Route::get('/screening-test', 'ProfileController@screeningTest');
+    Route::post('/screening-test', 'ProfileController@handleScreeningTest');
+    Route::get('/logout', function() {
+        Auth::logout();
+        return redirect('/home');
+    });
+});
+Route::any('/profile-setup', function() {
+    if(auth()->user()->finished_profile) {
+        return redirect('/home');
+    }
+});
+Route::any('/screening-test', function() {
+    if(auth()->user()->finished_profile) {
+        return redirect('/home');
+    }
+});

@@ -36,7 +36,6 @@ class ProgramController extends Controller
     	$program = Program::where('user_id', auth()->user()->id)->first()->getAttributes();
     	$week = json_decode($program['week_' . $number]);
     	$rq = json_decode($program['rq_' . $number]);
-    	// var_dump($week->{'Training plan'});
     	return view('weeks.quiz', [
     			'week' => $week,
     			'quiz' => $rq,

@@ -3,6 +3,8 @@ namespace App\Helpers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Challenges;
+use App\Models\Program;
+use App\Models\User;
 use CountryState;
 
 class ProfileHelper
@@ -497,7 +499,7 @@ class ProfileHelper
         return $age_grade;
     }
 
-    public static function addUserProperties(ArrayObject $properties)
+    public static function addUserProperties(\ArrayObject $properties)
     {
         auth()->user()->name            = $properties->name;
         auth()->user()->email           = $properties->email;
@@ -560,11 +562,11 @@ class ProfileHelper
         **/
 
         // TODO: changed database columns, we need to see which one will stay and which one will not and change code based on that
-        $wp = new Programs;
+        $wp = new Program;
         $wp->user_id = auth()->user()->id;
         $wp->save();
 
-        $properties = new ArrayObject();
+        $properties = new \ArrayObject();
 
         $properties->name           = $request->name;
         $properties->email          = $request->email;
