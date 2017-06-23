@@ -54,13 +54,3 @@ Route::middleware('auth')->group(function() {
         return redirect('/home');
     });
 });
-Route::any('/profile-setup', function() {
-    if(auth()->user()->finished_profile) {
-        return redirect('/home');
-    }
-});
-Route::any('/screening-test', function() {
-    if(auth()->user()->finished_profile) {
-        return redirect('/home');
-    }
-});

@@ -12,7 +12,7 @@
 
     <a href="{{ url('/weeks') . '/' . $week->id . '/edit' }}" class="btn">Edit Week</a>
 
-    <a href="#" class="btn js-delete">Delete</a>
+    <a href="#" id="weeks" data-id="{{ $week->id }}" data-token="{{ csrf_token() }}" class="btn js-delete">Delete</a>
 
     </div>
 @endsection

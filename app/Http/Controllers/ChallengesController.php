@@ -70,6 +70,7 @@ $c3 = array(
     public function setUpChallenges(Request $request) {
     	$program_start = Carbon::parse(auth()->user()->program_start);
     	$user_challenge = Challenges::find(auth()->user()->program_id);
+        var_dump($user_challenge);
 
     	/**
     	 *
