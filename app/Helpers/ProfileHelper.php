@@ -496,7 +496,7 @@ class ProfileHelper
         return $age_grade;
     }
 
-    public static function addUserProperties($properties)
+    public static function addUserProperties(ArrayObject $properties)
     {
         auth()->user()->name            = $properties->name;
         auth()->user()->email           = $properties->email;
@@ -562,7 +562,7 @@ class ProfileHelper
         $wp->user_id = auth()->user()->id;
         $wp->save();
 
-        $properties = [];
+        $properties = new ArrayObject();
 
         $properties->name           = $request->name;
         $properties->email          = $request->email;
