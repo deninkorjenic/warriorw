@@ -6,7 +6,6 @@ use App\Models\Challenges;
 use App\Models\Programs;
 use App\Models\User;
 use Carbon\Carbon;
-use CountryState;
 use Illuminate\Http\Request;
 use App\Helpers\ProfileHelper;
 
@@ -16,19 +15,10 @@ class ProfileController extends Controller
 	 * Display the form for setting up
 	 * the user profile
 	 */
-    public function index() {
-        
-        $timezone = ProfileHelper::returnTimezones();
-    	$user = auth()->user();
-    	$userInfo = array(
-    			'name'          => $user->name,
-    			'email'         => $user->email,
-                'countries'     => CountryState::getCountries(),
-                'timezone'      => $timezone,
-                'us_states'     => ProfileHelper::returnUSStates(),
-    		);
+    public function index()
+    {
 
-    	return view('profile.index', ['userInfo' => $userInfo]);
+    	return view('profile.index', ['userInfo' => ProfileHelper::getUserInfo()]);
     }
 
     /**
@@ -39,7 +29,7 @@ class ProfileController extends Controller
      */
     public function updateProfile(Request $request) {
         ProfileHelper::updateProfile($request);
-        
+
         return redirect('/screening-test');
     }
 

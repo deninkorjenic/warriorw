@@ -3,6 +3,7 @@ namespace App\Helpers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Challenges;
+use CountryState;
 
 class ProfileHelper
 {
@@ -533,7 +534,8 @@ class ProfileHelper
          * Get the last day of first week and add
          * 15 weeks/105 days to it
         **/
-        $last_day = new auth()->user()->program_start;
+        $dt = auth()->user()->program_start;
+        $last_day = new $dt;
         $last_day->day = $last_day->day+111;
 
         /**
@@ -574,5 +576,19 @@ class ProfileHelper
         $properties->security       = $security;
         
         self::addUserProperties($properties);
+    }
+
+    public static function getUserInfo()
+    {
+        $timezone = self::returnTimezones();
+        $userInfo = [
+            'name'          => auth()->user()->name,
+            'email'         => auth()->user()->email,
+            'countries'     => CountryState::getCountries(),
+            'timezone'      => $timezone,
+            'us_states'     => self::returnUSStates(),
+        ];
+
+        return $userInfo;
     }
 }
