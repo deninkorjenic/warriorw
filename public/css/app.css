@@ -7,7 +7,7 @@ body.auth .wrapper {
 body.auth .wrapper-landing {
     width: 0;
     height: 100vh;
-    background: url(/images/home-bg.jpg) right center;
+    background: url(images/home-bg.jpg) right center;
     background-size: cover;
 }
 
