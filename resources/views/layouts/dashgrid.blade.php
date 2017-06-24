@@ -13,8 +13,8 @@
 
     <!-- Styles -->
     {!! MaterializeCSS::include_css() !!}
-    <link href="/css/app.css" rel="stylesheet">
-    <link href="/css/font-awesome.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -55,7 +55,7 @@
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
-  <script src="/js/scripter.js"></script>
+  <script src="js/scripter.js"></script>
   {!! MaterializeCSS::include_js() !!}
 </body>
 </html>
