@@ -10,7 +10,7 @@ $('.js-delete').on('click', function(e) {
     var name = this.id;
     var id = $(this).data('id');
     var token = $(this).data('token');
-    var url = '/' + name + '/' + id;
+    var url = name + '/' + id;
 
     if (result) {
         $.ajax({
