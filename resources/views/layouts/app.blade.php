@@ -11,6 +11,8 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <base href="{{URL::asset('/')}}" target="_top">
+
     <!-- Styles -->
     {!! MaterializeCSS::include_css() !!}
     <link href="/css/app.css" rel="stylesheet">
@@ -50,8 +52,12 @@
     </div>
 </div>
 
-<!-- Scripts -->
-<script src="/js/app.js"></script>
+<!-- Scripts 
+<script src="/js/app.js"></script> -->
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
 <script src="/js/scripter.js"></script>
 {!! MaterializeCSS::include_js() !!}
 </body>
