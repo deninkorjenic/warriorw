@@ -11,12 +11,10 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <base href="{{URL::asset('/')}}" target="_top">
-
     <!-- Styles -->
     {!! MaterializeCSS::include_css() !!}
-    <link href="css/app.css" rel="stylesheet">
-    <link href="css/font-awesome.css" rel="stylesheet">
+    <link href="{{ url('/css/app.css') }}" rel="stylesheet">
+    <link href="{{ url('/css/font-awesome.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
