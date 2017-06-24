@@ -51,7 +51,7 @@
       <a href="#!email"><span class="white-text email">{{ auth()->user()->email }}</span></a>
     </div></li>
     <li><a class="subheader">Notifications</a></li>
-    <li><a href="{{ url('/week-1') }]"><i class="fa fa-star" aria-hidden="true"></i> New webinar is out</a></li>
+    <li><a href="{{ url('/week-1') }}"><i class="fa fa-star" aria-hidden="true"></i> New webinar is out</a></li>
     <li><a href="{{ url('/food-diary') }}"><i class="fa fa-star" aria-hidden="true"></i> Food diary available!</a></li>
     <li><a href="#!"><i class="fa fa-calendar-check-o" aria-hidden="true"></i> New week started!</a></li>
     <li><div class="divider"></div></li>
