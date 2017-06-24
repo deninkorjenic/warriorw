@@ -9,7 +9,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <base href="{{URL::asset('/')}}" target="_top">
 
     <!-- Styles -->
     {!! MaterializeCSS::include_css() !!}
