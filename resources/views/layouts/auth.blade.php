@@ -10,8 +10,6 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <base href="{{URL::asset('/')}}" target="_top">
-
     <!-- Styles -->
     {!! MaterializeCSS::include_css() !!}
     <link href="css/app.css" rel="stylesheet">
