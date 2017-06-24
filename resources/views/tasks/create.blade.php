@@ -4,7 +4,7 @@
     <h2>Create new Task</h2>
 
     <div class="row">
-        <form class="col s12" method="POST" action="/tasks">
+        <form class="col s12" method="POST" action="{{ url('/tasks') }}">
             {{ csrf_field() }}
             <div class="row">
                 <div class="input-field col s12">

@@ -4,7 +4,7 @@
     <h2>Create new Week</h2>
 
     <div class="row">
-        <form class="col s12" method="POST" action="/weeks">
+        <form class="col s12" method="POST" action="{{ url('/weeks') }}">
             {{ csrf_field() }}
             <div class="row">
                 <div class="input-field col s12">
