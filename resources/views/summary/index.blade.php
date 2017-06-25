@@ -11,7 +11,7 @@
             <div class="row">
               <div class="col s12 m12 l6">
                 <div class="card">
-                  <form action="/home" role="form" method="POST" id="my_goals">
+                  <form action="{{ url('/home') }}" role="form" method="POST" id="my_goals">
                     {{ csrf_field() }}
 
                     <div class="card-content">
@@ -145,7 +145,7 @@
                 </div>
                 <div class="card-panel teal">
                   <h4 class="white-text">
-                    <a href="/challenges" class="white-text">Go to challenges</a>
+                    <a href="{{ url('/challenges') }}" class="white-text">Go to challenges</a>
                   </h4>
                 </div>
               </div>
