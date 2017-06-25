@@ -28,6 +28,7 @@ Route::middleware(['auth', 'fullprofile'])->group(function() {
 
     Route::get('/week-{number}', 'ProgramController@getWeek');
     Route::get('/food-diary',   'ProgramController@getFoodDiary');
+    Route::get('/quiz-{number}', 'ProgramController@getQuiz');
 
     // TODO: This will be changed to CRUD probably
     Route::get('/challenges', 'ChallengesController@index');
