@@ -468,6 +468,10 @@ class Program extends Model
         
         $this->week_0 = $week_0;
         $this->rq_1 = $rq_1;
+        // TODO: this is for demo version only
+        $this->rq_2 = $rq_1;
+        $this->rq_3 = $rq_1;
+        $this->rq_4 = $rq_1;
         $this->week_1 = $week_1;
         $this->week_2 = $week_2;
         $this->week_3 = $week_3;
