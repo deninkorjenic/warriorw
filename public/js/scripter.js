@@ -20,7 +20,8 @@ $('.js-delete').on('click', function(e) {
             'type': 'DELETE',
             'data': {_method: 'delete', _token: token},
             'success': function () {
-                window.location.replace(name);
+                // TODO: This needs to be changed after vhost
+                window.location.replace('/warriorw/public/' + name);
             }
         });
     }
