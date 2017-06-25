@@ -25,7 +25,7 @@
 <body class="auth">
     @yield('content')
     <!-- Scripts -->
-  <script src="/js/app.js"></script>
+  <script src="js/app.js"></script>
   <script src="js/scripter.js"></script>
   {!! MaterializeCSS::include_js() !!}
 </body>
