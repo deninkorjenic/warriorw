@@ -15,32 +15,21 @@ Auth::routes();
 */
 
 Route::middleware(['auth', 'fullprofile'])->group(function() {
-    Route::get('/home', 'HomeController@showSummary');
-    Route::get('/', 'HomeController@showSummary');
-
-    Route::post('/home', 'HomeController@updateGoals');
-
     // Weeks CRUD routes
-    Route::get('/weeks', 'WeekController@index');
-    Route::get('/weeks/create', 'WeekController@create');
-    Route::post('/weeks', 'WeekController@store');
-    Route::get('/weeks/{id}', 'WeekController@show');
-    Route::get('/weeks/{id}/edit', 'WeekController@edit');
-    Route::patch('/weeks/{id}', 'WeekController@update');
-    Route::delete('/weeks/{id}', 'WeekController@destroy');
+    Route::resource('weeks', 'WeekController');
 
     // Task CRUD routes
-    Route::get('/tasks', 'TaskController@index');
-    Route::get('/tasks/create', 'TaskController@create');
-    Route::post('/tasks', 'TaskController@store');
-    Route::get('/tasks/{id}', 'TaskController@show');
-    Route::get('/tasks/{id}/edit', 'TaskController@edit');
-    Route::patch('/tasks/{id}', 'TaskController@update');
-    Route::delete('/tasks/{id}', 'TaskController@destroy');
+    Route::resource('tasks', 'TaskController');
+
+    // Rest of controllers
+    Route::get('/home', 'HomeController@showSummary');
+    Route::get('/', 'HomeController@showSummary');
+    Route::post('/home', 'HomeController@updateGoals');
 
     Route::get('/week-{number}', 'ProgramController@getWeek');
     Route::get('/food-diary',   'ProgramController@getFoodDiary');
 
+    // TODO: This will be changed to CRUD probably
     Route::get('/challenges', 'ChallengesController@index');
     Route::post('/challenges', 'ChallengesController@setUpChallenges');
 });

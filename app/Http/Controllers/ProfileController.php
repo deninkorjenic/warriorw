@@ -14,6 +14,9 @@ class ProfileController extends Controller
 	 */
     public function index()
     {
+        if(auth()->user()->finished_profile) {
+            return redirect('/home');
+        }
     	return view('profile.index', ['userInfo' => ProfileHelper::getUserInfo()]);
     }
 
@@ -24,6 +27,9 @@ class ProfileController extends Controller
      * client's input
      */
     public function updateProfile(Request $request) {
+        if(auth()->user()->finished_profile) {
+            return redirect('/home');
+        }
         ProfileHelper::updateProfile($request);
 
         return redirect('/screening-test');
@@ -34,6 +40,9 @@ class ProfileController extends Controller
      * @ user wellnes score.
      */
     public function screeningTest() {
+        if(auth()->user()->finished_profile) {
+            return redirect('/home');
+        }
     	return view('profile.screening');
     }
 
@@ -42,6 +51,9 @@ class ProfileController extends Controller
      * @ where to place the user.
     **/
     public function handleScreeningTest(Request $request) {
+        if(auth()->user()->finished_profile) {
+            return redirect('/home');
+        }
         if(ScreeningHelper::handleScreeningTest($request)) {
             return redirect('/home');
         }
