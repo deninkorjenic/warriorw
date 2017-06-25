@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 43);
+/******/ 	return __webpack_require__(__webpack_require__.s = 35);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -10607,7 +10607,7 @@ return jQuery;
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(28);
+var normalizeHeaderName = __webpack_require__(27);
 
 var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 var DEFAULT_CONTENT_TYPE = {
@@ -10698,7 +10698,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
 /* 3 */
@@ -10708,12 +10708,12 @@ module.exports = defaults;
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(0);
-var settle = __webpack_require__(20);
-var buildURL = __webpack_require__(23);
-var parseHeaders = __webpack_require__(29);
-var isURLSameOrigin = __webpack_require__(27);
+var settle = __webpack_require__(19);
+var buildURL = __webpack_require__(22);
+var parseHeaders = __webpack_require__(28);
+var isURLSameOrigin = __webpack_require__(26);
 var createError = __webpack_require__(6);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(22);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(21);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -10809,7 +10809,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(25);
+      var cookies = __webpack_require__(24);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -10883,7 +10883,7 @@ module.exports = function xhrAdapter(config) {
   });
 };
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
 /* 4 */
@@ -10930,7 +10930,7 @@ module.exports = function isCancel(value) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(19);
+var enhanceError = __webpack_require__(18);
 
 /**
  * Create an Error with the specified message, config, error code, and response.
@@ -10967,38 +10967,6 @@ module.exports = function bind(fn, thisArg) {
 
 /***/ }),
 /* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($) {var Chart = __webpack_require__(39);
-$(document).ready(function () {
-	var chart = document.getElementById('chart');
-	var myChart = new Chart(chart, {
-		type: 'line',
-		data: {
-			labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12", "Week 13", "Week 14", "Week 15"],
-			datasets: [{
-				label: 'Point progress',
-				data: [20, 38, 58, 78, 90, 110, 130, 150, 165, 180, 200, 218, 238, 258, 278],
-				backgroundColor: ['rgba(255, 99, 132, 0.2)'],
-				borderColor: ['rgba(255,99,132,1)'],
-				borderWidth: 1
-			}]
-		},
-		options: {
-			scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: true
-					}
-				}]
-			}
-		}
-	});
-});
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 9 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -11184,26 +11152,158 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(jQuery) {__webpack_require__(31);
+/* WEBPACK VAR INJECTION */(function($, jQuery) {__webpack_require__(30);
 
-/**
+/** 
  * Simple JS router
 **/
-
 var path = window.location.pathname;
 
-if (jQuery.trim(path).substring(0, path.length - 2) == '/week' || jQuery.trim(path).substring(0, path.length - 3) == '/week') {
-	__webpack_require__(38);
+if (path == '/register') {
+
+	$(document).ready(function () {
+		$('.datepicker').pickadate({
+			selectMonths: true, // Creates a dropdown to control month
+			selectYears: 99 // Creates a dropdown of 15 years to control year
+		});
+		$(".button-collapse").sideNav();
+	});
+} else if (path == '/screening-test') {
+
+	$(document).ready(function () {
+		$('select').material_select();
+
+		$("#q13").change(function () {
+			if ($(this).find('option:selected').length > 5) {
+				$(this).parent('.select-wrapper').find('ul').find('li:not(.active)').css('pointer-events', 'none');
+			} else {
+				$(this).parent('.select-wrapper').find('ul').find('li:not(.active)').css('pointer-events', 'all');
+			}
+		});
+
+		$('#age_slider').change(function () {
+			$('#age').val($('#age_slider').val());
+		});
+
+		$('#waist_slider').change(function () {
+			$('#waist').val($('#waist_slider').val());
+		});
+
+		$('#heart_slider').change(function () {
+			$('#heart').val($('#heart_slider').val());
+		});
+
+		$('#unit').change(function () {
+			if ($(this).val() == 'cm') {
+				$('.setSlider').html('<label>What is your waist circumference (cm)?</label><input type="range" id="waist_slider" name="waist_slider" min="60" max="140" step="0.5" />');
+				$('#waist_slider').change(function () {
+					$('#waist').val($('#waist_slider').val());
+				});
+			} else {
+				$('.setSlider').html('<label>What is your waist circumference (in)?</label><input type="range" id="waist_slider" name="waist_slider" min="23.5" max="55" step="0.25" />');
+				$('#waist_slider').change(function () {
+					$('#waist').val($('#waist_slider').val());
+				});
+			}
+		});
+
+		$('.q3 input[type=checkbox]').change(function () {
+			$('.q3 .input-field').toggleClass('hidden');
+		});
+		$('.q4 input[type=checkbox]').change(function () {
+			$('.q4 .input-field').toggleClass('hidden');
+		});
+		$('.q5 input[type=checkbox]').change(function () {
+			$('.q5 .input-field').toggleClass('hidden');
+		});
+		$('.q6 input[type=checkbox]').change(function () {
+			$('.q6 .input-field').toggleClass('hidden');
+		});
+		$('.q7 input[type=checkbox]').change(function () {
+			$('.q7 .input-field').toggleClass('hidden');
+		});
+		$('.q8 input[type=checkbox]').change(function () {
+			$('.q8 .input-field').toggleClass('hidden');
+		});
+	});
+} else if (path == '/home' || path == '/') {
+	var Chart = __webpack_require__(31);
+	$(document).ready(function () {
+		var chart = document.getElementById('chart');
+		var myChart = new Chart(chart, {
+			type: 'line',
+			data: {
+				labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12", "Week 13", "Week 14", "Week 15"],
+				datasets: [{
+					label: 'Point progress',
+					data: [20, 38, 58, 78, 90, 110, 130, 150, 165, 180, 200, 218, 238, 258, 278],
+					backgroundColor: ['rgba(255, 99, 132, 0.2)'],
+					borderColor: ['rgba(255,99,132,1)'],
+					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true
+						}
+					}]
+				}
+			}
+		});
+	});
+} else if (path === '/profile-setup') {
+	$(document).ready(function () {
+		$('select').material_select();
+		$('#country').change(function () {
+			var selected = $('#country option:selected').val();
+			if (selected == 'US') {
+				if ($('.location').hasClass('s6')) {
+					$('.location').removeClass('s6');
+					$('.location').addClass('s4');
+					$('.state').removeClass('hidden');
+				}
+			} else {
+				if ($('.location').hasClass('s4')) {
+					$('.location').removeClass('s4');
+					$('.location').addClass('s6');
+					$('.state').addClass('hidden');
+				}
+			}
+		});
+	});
+} else if (jQuery.trim(path).substring(0, path.length - 2) == '/week' || jQuery.trim(path).substring(0, path.length - 3) == '/week') {
+
+	$(document).ready(function () {
+		$('.modal').modal();
+	});
 } else if (jQuery.trim(path).substring(0, path.length - 2) == '/quiz' || jQuery.trim(path).substring(0, path.length - 3) == '/quiz') {
-	__webpack_require__(35);
+
+	$(document).ready(function () {
+		$('select').material_select();
+	});
+} else if (path == '/archive') {
+
+	$(document).ready(function () {
+		$('ul.tabs').tabs();
+	});
 }
 
-__webpack_require__(32);
-__webpack_require__(34);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+$(document).ready(function () {
+	console.log($(".button-collapse"));
+	$(".button-collapse").sideNav();
+});
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(1)))
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 11 */
@@ -11213,18 +11313,12 @@ __webpack_require__(34);
 
 /***/ }),
 /* 12 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+module.exports = __webpack_require__(13);
 
 /***/ }),
 /* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(14);
-
-/***/ }),
-/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11232,7 +11326,7 @@ module.exports = __webpack_require__(14);
 
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(7);
-var Axios = __webpack_require__(16);
+var Axios = __webpack_require__(15);
 var defaults = __webpack_require__(2);
 
 /**
@@ -11267,14 +11361,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(4);
-axios.CancelToken = __webpack_require__(15);
+axios.CancelToken = __webpack_require__(14);
 axios.isCancel = __webpack_require__(5);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(30);
+axios.spread = __webpack_require__(29);
 
 module.exports = axios;
 
@@ -11283,7 +11377,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11347,7 +11441,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11355,10 +11449,10 @@ module.exports = CancelToken;
 
 var defaults = __webpack_require__(2);
 var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(17);
-var dispatchRequest = __webpack_require__(18);
-var isAbsoluteURL = __webpack_require__(26);
-var combineURLs = __webpack_require__(24);
+var InterceptorManager = __webpack_require__(16);
+var dispatchRequest = __webpack_require__(17);
+var isAbsoluteURL = __webpack_require__(25);
+var combineURLs = __webpack_require__(23);
 
 /**
  * Create a new instance of Axios
@@ -11439,7 +11533,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11498,14 +11592,14 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var transformData = __webpack_require__(21);
+var transformData = __webpack_require__(20);
 var isCancel = __webpack_require__(5);
 var defaults = __webpack_require__(2);
 
@@ -11584,7 +11678,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11610,7 +11704,7 @@ module.exports = function enhanceError(error, config, code, response) {
 
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11642,7 +11736,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11669,7 +11763,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11712,7 +11806,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11787,7 +11881,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11806,7 +11900,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11866,7 +11960,7 @@ module.exports = (
 
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11887,7 +11981,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11962,7 +12056,7 @@ module.exports = (
 
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11981,7 +12075,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12025,7 +12119,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 30 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12059,11 +12153,11 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {
-window._ = __webpack_require__(40);
+window._ = __webpack_require__(32);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -12079,7 +12173,7 @@ window.$ = __webpack_provided_window_dot_jQuery = __webpack_require__(1);
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(13);
+window.axios = __webpack_require__(12);
 
 window.axios.defaults.headers.common = {
   'X-Requested-With': 'XMLHttpRequest'
@@ -12100,151 +12194,7 @@ window.axios.defaults.headers.common = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($) {$(document).ready(function () {
-	$(".button-collapse").sideNav();
-});
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($) {$(document).ready(function () {
-	$('select').material_select();
-	$('#country').change(function () {
-		var selected = $('#country option:selected').val();
-		if (selected == 'US') {
-			if ($('.location').hasClass('s6')) {
-				$('.location').removeClass('s6');
-				$('.location').addClass('s4');
-				$('.state').removeClass('hidden');
-			}
-		} else {
-			if ($('.location').hasClass('s4')) {
-				$('.location').removeClass('s4');
-				$('.location').addClass('s6');
-				$('.state').addClass('hidden');
-			}
-		}
-	});
-});
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports) {
-
-// require('pusher-js');
-
-// Pusher.logToConsole = true;
-
-// var pusher = new Pusher('ddead41f95b8b7aad526', {
-//   encrypted: true
-// });
-
-// var channel = pusher.subscribe('my-channel');
-// channel.bind('my-event', function(data) {
-//   alert(data.message);
-// });
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($) {$(document).ready(function () {
-	$('select').material_select();
-});
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($) {$(document).ready(function () {
-  $('.datepicker').pickadate({
-    selectMonths: true, // Creates a dropdown to control month
-    selectYears: 99 // Creates a dropdown of 15 years to control year
-  });
-  $(".button-collapse").sideNav();
-});
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 37 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($) {$(document).ready(function () {
-	$('select').material_select();
-
-	$("#q13").change(function () {
-		if ($(this).find('option:selected').length > 5) {
-			$(this).parent('.select-wrapper').find('ul').find('li:not(.active)').css('pointer-events', 'none');
-		} else {
-			$(this).parent('.select-wrapper').find('ul').find('li:not(.active)').css('pointer-events', 'all');
-		}
-	});
-
-	$('#age_slider').change(function () {
-		$('#age').val($('#age_slider').val());
-	});
-
-	$('#waist_slider').change(function () {
-		$('#waist').val($('#waist_slider').val());
-	});
-
-	$('#heart_slider').change(function () {
-		$('#heart').val($('#heart_slider').val());
-	});
-
-	$('#unit').change(function () {
-		if ($(this).val() == 'cm') {
-			$('.setSlider').html('<label>What is your waist circumference (cm)?</label><input type="range" id="waist_slider" name="waist_slider" min="60" max="140" step="0.5" />');
-			$('#waist_slider').change(function () {
-				$('#waist').val($('#waist_slider').val());
-			});
-		} else {
-			$('.setSlider').html('<label>What is your waist circumference (in)?</label><input type="range" id="waist_slider" name="waist_slider" min="23.5" max="55" step="0.25" />');
-			$('#waist_slider').change(function () {
-				$('#waist').val($('#waist_slider').val());
-			});
-		}
-	});
-
-	$('.q3 input[type=checkbox]').change(function () {
-		$('.q3 .input-field').toggleClass('hidden');
-	});
-	$('.q4 input[type=checkbox]').change(function () {
-		$('.q4 .input-field').toggleClass('hidden');
-	});
-	$('.q5 input[type=checkbox]').change(function () {
-		$('.q5 .input-field').toggleClass('hidden');
-	});
-	$('.q6 input[type=checkbox]').change(function () {
-		$('.q6 .input-field').toggleClass('hidden');
-	});
-	$('.q7 input[type=checkbox]').change(function () {
-		$('.q7 .input-field').toggleClass('hidden');
-	});
-	$('.q8 input[type=checkbox]').change(function () {
-		$('.q8 .input-field').toggleClass('hidden');
-	});
-});
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($) {$(document).ready(function () {
-	$('.modal').modal();
-});
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
-/* 39 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var require;var require;/*!
@@ -13689,11 +13639,11 @@ for (var func in conversions) {
   // export rgb2hsl and ["rgb"]["hsl"]
   convert[from] = convert[from] || {};
 
-  convert[from][to] = convert[func] = (function(func) {
+  convert[from][to] = convert[func] = (function(func) { 
     return function(arg) {
       if (typeof arg == "number")
         arg = Array.prototype.slice.call(arguments);
-
+      
       var val = conversions[func](arg);
       if (typeof val == "string" || val === undefined)
         return val; // keyword
@@ -13721,12 +13671,12 @@ Converter.prototype.routeSpace = function(space, args) {
    }
    // color.rgb(10, 10, 10)
    if (typeof values == "number") {
-      values = Array.prototype.slice.call(args);
+      values = Array.prototype.slice.call(args);        
    }
 
    return this.setValues(space, values);
 };
-
+  
 /* Set the values for a space, invalidating cache */
 Converter.prototype.setValues = function(space, values) {
    this.space = space;
@@ -28104,7 +28054,7 @@ module.exports = function(Chart) {
 });
 
 /***/ }),
-/* 40 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -45193,10 +45143,10 @@ module.exports = function(Chart) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41), __webpack_require__(42)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(33), __webpack_require__(34)(module)))
 
 /***/ }),
-/* 41 */
+/* 33 */
 /***/ (function(module, exports) {
 
 var g;
@@ -45223,7 +45173,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 42 */
+/* 34 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -45251,20 +45201,13 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 43 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(9);
 __webpack_require__(10);
-__webpack_require__(11);
-module.exports = __webpack_require__(12);
+module.exports = __webpack_require__(11);
 
 
 /***/ })
 /******/ ]);
-$(document).ready(function() {
-    $('select').material_select();
-    $('.datepicker').pickadate({
-        selectMonths: true, // Creates a dropdown to control month
-        selectYears: 99 // Creates a dropdown of 15 years to control year
-    });
-})
