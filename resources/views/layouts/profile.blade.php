@@ -12,8 +12,8 @@
 
     <!-- Styles -->
     {!! MaterializeCSS::include_css() !!}
-    <link href="css/app.css" rel="stylesheet">
-    <link href="css/font-awesome.css" rel="stylesheet">
+    <link href="{{ url('css/app.css') }}" rel="stylesheet">
+    <link href="{{ url('css/font-awesome.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -64,8 +64,8 @@
     </div>
   </div>
   <!-- Scripts -->
-  <script src="js/app.js"></script>
-  <script src="js/scripter.js"></script>
+  <script src="{{ url('/js/app.js') }}"></script>
+  <script src="{{ url('js/scripter.js') }}"></script>
   {!! MaterializeCSS::include_js() !!}
 </body>
 </html>
