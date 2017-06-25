@@ -15,7 +15,10 @@ Auth::routes();
 */
 
 Route::middleware(['auth', 'fullprofile'])->group(function() {
-    Route::get('/home', 'HomeController@index');
+    Route::get('/home', 'HomeController@showSummary');
+    Route::get('/', 'HomeController@showSummary');
+
+    Route::post('/home', 'HomeController@updateGoals');
 
     // Weeks CRUD routes
     Route::get('/weeks', 'WeekController@index');

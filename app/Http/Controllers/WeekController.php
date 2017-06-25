@@ -41,7 +41,7 @@ class WeekController extends Controller
 
         session()->flash('message', 'Week successfully created!');
 
-        return redirect('/home');
+        return redirect('/weeks');
     }
 
     /**

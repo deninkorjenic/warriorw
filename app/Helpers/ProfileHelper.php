@@ -564,7 +564,7 @@ class ProfileHelper
         // TODO: changed database columns, we need to see which one will stay and which one will not and change code based on that
         $wp = new Program;
         $wp->user_id = auth()->user()->id;
-        $wp->save();
+        $wp->create();
 
         $properties = new \ArrayObject();
 

@@ -9,10 +9,10 @@
       </div>
       <div class="col s12">
         @if(!$number == 0)
-          <a href="{{ url('/quiz-') . $number}}" class="btn btn-large waves-effect">Revision Quiz</a>
-          <a href="{{ url('/food-diary') }}" class="btn btn-large waves-effect">4 day food diary</a>
+          <a href="/quiz-{{$number}}" class="btn btn-large waves-effect">Revision Quiz</a>
+          <a href="/food-diary" class="btn btn-large waves-effect">4 day food diary</a>
         @endif
-        <a href="{{ url('/challenges') }}" class="btn btn-large waves-effect">Challenges</a>
+        <a href="/challenges" class="btn btn-large waves-effect">Challenges</a>
       </div>
     </div>
     @if(isset($week->{'Education'}))
@@ -45,7 +45,7 @@
                           @endif
                         </td>
                         <td>
-                          <form action="{{ url('/week/education') }}" method="POST" class="right-align">
+                          <form action="/week/education" method="POST" class="right-align">
                             <input @if(!$webinars[$k]) disabled="disabled" @endif type="checkbox" class="filled-in" name="education-{{$k+1}}" id="education-{{$k+1}}" @if($t[1]) checked="checked" checked @endif />
                             <label for="education-{{$k+1}}"></label>
                           </form>
