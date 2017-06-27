@@ -6,7 +6,7 @@
   <div class="wrapper-form">
     <img src="images/logo-light.png" alt="">
     <form role="form" method="POST" action="{{ url('/login') }}">
-      {!! csrf_field() !!}
+      {{ csrf_field() }}
       <div class="input-field{{ $errors->has('email') ? ' has-error' : '' }}"">
         <label for="email">E-mail Address</label>
         <input type="text" name="email" id="email" class="form-control">
