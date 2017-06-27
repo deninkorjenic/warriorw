@@ -5,7 +5,8 @@ require('./bootstrap');
 **/
 const path = window.location.pathname;
 
-if (path == '/register') {
+// TODO: this is for demo purpose, vhost will be used here
+if (path == '/register' || path == '/warriorw/public/register') {
 
 	$(document).ready(function(){
 	  $('.datepicker').pickadate({
@@ -15,7 +16,8 @@ if (path == '/register') {
 	  $(".button-collapse").sideNav();
 	});	
 
-} else if (path == '/screening-test') {
+// TODO: this is for demo purpose
+} else if (path == '/screening-test' || path == '/warriorw/public/screening-test') {
 
 	$(document).ready(function(){
 		$('select').material_select();
@@ -73,8 +75,9 @@ if (path == '/register') {
 			$('.q8 .input-field').toggleClass('hidden');
 		});
 	});
-	
-} else if (path == '/home' || path == '/') {
+
+// TODO: used for demo purpose
+} else if (path == '/home' || path == '/' || path == '/warriorw/public/home') {
 	var Chart = require('./../../../node_modules/chart.js/dist/Chart.bundle.js');
 	$(document).ready(function(){
 		var chart = document.getElementById('chart');

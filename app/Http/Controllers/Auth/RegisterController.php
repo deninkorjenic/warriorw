@@ -47,6 +47,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        // TODO: implement validation for Full Name field
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',

@@ -33,24 +33,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                    @foreach($week->{'Education'} as $k=>$t)
-                      <tr @if(!$webinars[$k]) class="grey-text" @endif>
-                        <td>{{ $k+1 }}.</td>
-                        <td>{{$t[0]}}</td>
-                        <td>
-                          @if($webinars[$k])
-                            <a href="#monday" class="black-text modal-trigger"><i class="fa fa-video-camera" aria-hidden="true"></i> Watch video</a>
-                          @else
-                            Available on wednesday
-                          @endif
-                        </td>
-                        <td>
-                          <form action="{{ url('/week/education') }}" method="POST" class="right-align">
-                            <input @if(!$webinars[$k]) disabled="disabled" @endif type="checkbox" class="filled-in" name="education-{{$k+1}}" id="education-{{$k+1}}" @if($t[1]) checked="checked" checked @endif />
-                            <label for="education-{{$k+1}}"></label>
-                          </form>
-                        </td>
-                      </tr>
+                    @foreach($week->{'Education'} as $key=>$edu)
+                      @include('weeks.subviews.education', ['key' => $key, 'webinars' => $webinars, 'edu' => $edu])
                     @endforeach
                 </tbody>
               </table> 
@@ -61,6 +45,7 @@
         </div>
       </div>
     </div>
+    <!-- TODO: implement challenges adding and retriving from database -->
     <div class="row">
       <div class="col s12">
         <div class="card">
