@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Week;
+use Illuminate\Http\Request;
+use Validator;
 
 class WeekController extends Controller
 {
@@ -33,13 +35,23 @@ class WeekController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
-        $this->validateWeek();
+        $validator = $this->validateWeek($request);
+        
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        // We must check if week already exists in database
+        if(!Week::where('week_number', $request->week_number)->first()) {
+            Week::create($request->all());
 
-        Week::create(request(['title', 'description', 'week_number', 'maximum_points']));
-
-        session()->flash('message', 'Week successfully created!');
+            session()->flash('message', 'Week successfully created!');
+        } else {
+            session()->flash('message', "Week number {$request->week_number} already exists.");
+        }
 
         return redirect('/weeks');
     }
@@ -76,11 +88,17 @@ class WeekController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function update(Request $request, $id)
     {
         $week = Week::findOrFail($id);
 
-        $this->validateWeek();
+        $validator = $this->validateWeek($request);
+        
+        if ($validator->fails()) {
+            return redirect()->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
         $week->update(request(['title', 'description', 'week_number', 'maximum_points']));
 
@@ -104,12 +122,14 @@ class WeekController extends Controller
     /**
      *  Validation rules for create and update
      */
-    private function validateWeek() {
-        return $this->validate(request(), [
-            'title' => 'string|max:255',
+    private function validateWeek(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
             'description' => 'required|string',
             'week_number' => 'bail|required|integer',
-            'maximum_points' => 'integer',
+            'maximum_points' => 'required|integer',
         ]);
+
+        return $validator;
     }
 }

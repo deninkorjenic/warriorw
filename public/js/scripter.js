@@ -11,8 +11,8 @@ $('.js-delete').on('click', function(e) {
     var id = $(this).data('id');
     var token = $(this).data('token');
     // TODO: remove this after vhost is set up
-    var url = '/warriorw/public/' + name + '/' + id;
-    //var url = name + '/' + id;
+    //var url = '/warriorw/public/' + name + '/' + id;
+    var url = '/' + name + '/' + id;
 
     if (result) {
         $.ajax({
@@ -21,7 +21,8 @@ $('.js-delete').on('click', function(e) {
             'data': {_method: 'delete', _token: token},
             'success': function () {
                 // TODO: This needs to be changed after vhost
-                window.location.replace('/warriorw/public/' + name);
+                //window.location.replace('/warriorw/public/' + name);
+                window.location.replace('/' + name)
             }
         });
     }
