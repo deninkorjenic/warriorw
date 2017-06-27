@@ -57,82 +57,84 @@
       </div>
     </div>
     @endif
-    <div class="row">
-      <div class="col s12">
-        <div class="card">
-          <div class="card-content">
-            <table class="highlight">
-              <span class="card-title">
-                Tasks
-              </span>
-              <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Details</th>
-                    <th>Done</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach($week->Tasks as $k=>$t)
+    @if(isset($week->{'Tasks'}))
+      <div class="row">
+        <div class="col s12">
+          <div class="card">
+            <div class="card-content">
+              <table class="highlight">
+                <span class="card-title">
+                  Tasks
+                </span>
+                <thead>
                   <tr>
-                    <td>{{ $k+1 }}.</td>
-                    <td>{{$t[0]}}</td>
-                    <td>
-                      <form action="#" class="right-align">
-                        <input type="checkbox" class="filled-in" name="task-{{$k+1}}" id="task-{{$k+1}}" @if($t[1]) checked="checked" checked @endif />
-                        <label for="task-{{$k+1}}"></label>
-                      </form>
-                    </td>
+                      <th>#</th>
+                      <th>Details</th>
+                      <th>Done</th>
                   </tr>
-                @endforeach
-              </tbody>
-            </table>
-          </div>
-          <div class="card-action right-align">
-            <a href="#" onclick="document.getElementById('my_goals').submit();">Update</a>
+                </thead>
+                <tbody>
+                  @foreach($week->Tasks as $k=>$t)
+                    <tr>
+                      <td>{{ $k+1 }}.</td>
+                      <td>{{$t[0]}}</td>
+                      <td>
+                        <form action="#" class="right-align">
+                          <input type="checkbox" class="filled-in" name="task-{{$k+1}}" id="task-{{$k+1}}" @if($t[1]) checked="checked" checked @endif />
+                          <label for="task-{{$k+1}}"></label>
+                        </form>
+                      </td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+            <div class="card-action right-align">
+              <a href="#" onclick="document.getElementById('my_goals').submit();">Update</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    @endif
     @if(isset($week->{'Training plan'}))
-    <div class="row">
-      <div class="col s12">
-        <div class="card">
-          <div class="card-content">
-            <table class="highlight">
-              <span class="card-title">
-                Training plan
-              </span>
-              <thead>
-                <tr>
-                    <th>Day</th>
-                    <th>Details</th>
-                    <th>Done</th>
-                </tr>
-              </thead>
-              <tbody>
-                @php($days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday', 'Sunday'])
-                @foreach($week->{'Training plan'} as $k=>$t)
+      <div class="row">
+        <div class="col s12">
+          <div class="card">
+            <div class="card-content">
+              <table class="highlight">
+                <span class="card-title">
+                  Training plan
+                </span>
+                <thead>
                   <tr>
-                    <td>{{ $days[$k] }}</td>
-                    <td>{{$t[0]}}</td>
-                    <td>
-                      <form action="#" class="right-align">
-                        <input type="checkbox" class="filled-in" name="training-{{$k+1}}" id="training-{{$k+1}}" @if($t[1]) checked="checked" checked @endif />
-                        <label for="training-{{$k+1}}"></label>
-                      </form>
-                    </td>
+                      <th>Day</th>
+                      <th>Details</th>
+                      <th>Done</th>
                   </tr>
-                @endforeach
-              </tbody>
-            </table> 
-          </div>
-          <div class="card-action right-align">
-            <a href="#" onclick="document.getElementById('my_goals').submit();">Update</a>
+                </thead>
+                <tbody>
+                  @php($days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday', 'Sunday'])
+                  @foreach($week->{'Training plan'} as $k=>$t)
+                    <tr>
+                      <td>{{ $days[$k] }}</td>
+                      <td>{{$t[0]}}</td>
+                      <td>
+                        <form action="#" class="right-align">
+                          <input type="checkbox" class="filled-in" name="training-{{$k+1}}" id="training-{{$k+1}}" @if($t[1]) checked="checked" checked @endif />
+                          <label for="training-{{$k+1}}"></label>
+                        </form>
+                      </td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table> 
+            </div>
+            <div class="card-action right-align">
+              <a href="#" onclick="document.getElementById('my_goals').submit();">Update</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     @endif 
   </div>
  </div> 

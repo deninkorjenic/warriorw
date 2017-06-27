@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Models\Week;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
@@ -25,9 +26,13 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $weeks = Week::all();
+        if(count($weeks) <= 0) {
+            $request->session()->flash('message', 'Please first create some weeks before you can create tasks.');
+            return redirect('/weeks');
+        }
         return view('tasks.create', ['weeks' => $weeks]);
     }
 
@@ -40,7 +45,8 @@ class TaskController extends Controller
     {
         $this->validate(\request(), [
             'description' => 'required|string',
-            'points' => 'integer'
+            'points' => 'required|integer',
+            'related_weeks' => 'required',
         ]);
 
         $task = Task::create(request(['description', 'points']));
@@ -89,7 +95,8 @@ class TaskController extends Controller
 
         $this->validate(request(), [
             'description' => 'required|string',
-            'points' => 'integer'
+            'points' => 'integer',
+            'related_weeks' => 'required'
         ]);
 
         $relatedWeeks = Input::get('related_weeks');
