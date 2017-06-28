@@ -18,11 +18,13 @@ class FoodDiaryHelper
     {
         if($request->isMethod('post')) {
             $day_name = 'day_' .$request->input('day');
+            // We use old diary to get old values of before and after lunch
             $old_diary = self::read();
             $day = [];
 
             $user = User::find(auth()->user()->id);
 
+            // We're updating before lunch
             if($request->input('before_lunch') == 'true') {
                 $day['before_lunch'] = [];
                 $day['before_lunch']['ate'] = $request->input('ate');
@@ -34,6 +36,7 @@ class FoodDiaryHelper
                     }
                 }
             } else {
+                // We're updating after lunch
                 $day['after_lunch'] = [];
                 $day['after_lunch']['ate'] = $request->input('ate');
                 $day['after_lunch']['drank'] = $request->input('drank');
@@ -45,7 +48,7 @@ class FoodDiaryHelper
                 }
             }
             // There is already diary, we need to update it
-            if(self::read() !== null) {
+            if($old_diary !== null) {
                 $diary = FoodDiary::where('user_id', auth()->user()->id)
                                 ->update([$day_name => json_encode($day)]);
 
