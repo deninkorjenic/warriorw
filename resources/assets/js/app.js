@@ -147,6 +147,15 @@ if (path == '/register' || path == '/warriorw/public/register') {
 		$('ul.tabs').tabs();
 	});
 
+} else if ( path == '/food-diary' || path == '/warrirw/public/food-diary') {
+	$(document).rady(function() {
+		$(".food-diary-form").submit(function(event) {
+			event.preventDefault();
+
+			var day = $(this).children("[name='day']").val();
+			console.log(day);
+		}
+	})
 }
 
 $(document).ready(()=>{

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGoalsTable extends Migration
+class FoodDiaryAdd extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateGoalsTable extends Migration
      */
     public function up()
     {
-        if(!Schema::hasTable('goals')) {
-            Schema::create('goals', function (Blueprint $table) {
-                $table->increments('id');
-                $table->timestamps();
-                $table->string('name');
-                $table->string('description');
+        if(!Schema::hasColumn('users', 'food_diary')) {
+            Schema::table('users', function(Blueprint $table) {
+                $table->json('food_diary')->nullable();
             });
         }
     }
@@ -30,6 +27,6 @@ class CreateGoalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('goals');
+        //
     }
 }

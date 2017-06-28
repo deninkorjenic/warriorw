@@ -27,7 +27,9 @@ Route::middleware(['auth', 'fullprofile'])->group(function() {
     Route::post('/home', 'HomeController@updateGoals');
 
     Route::get('/week-{number}', 'ProgramController@getWeek');
+    // Food diary routes
     Route::get('/food-diary',   'ProgramController@getFoodDiary');
+    Route::post('/food-diary',   'ProgramController@updateFoodDiary');
     Route::get('/quiz-{number}', 'ProgramController@getQuiz');
 
     // TODO: This will be changed to CRUD probably

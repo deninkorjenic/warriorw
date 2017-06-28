@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Program;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Helpers\FoodDiaryHelper;
 
 class HomeController extends Controller
 {
