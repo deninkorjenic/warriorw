@@ -1,3 +1,9 @@
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 // Generic delete button
 // Below is how an example delete button should look like
 // <a href="#" id="tasks" data-id="{{ $task->id }}" data-token="{{ csrf_token() }}" class="btn js-delete">Delete</a>
@@ -38,5 +44,30 @@ $(document).ready(function() {
     $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 99 // Creates a dropdown of 15 years to control year
+    });
+    $(".food-diary-form").submit(function(event) {
+        event.preventDefault();
+
+        var day = $(this).find("[name='day']").val();
+
+        var ate = [];
+        $(this).find("input[name='ate[]']").each(function() {
+            ate.push($(this).val());
+        });
+
+        var drank = [];
+        $(this).find("input[name='drank[]']").each(function() {
+            drank.push($(this).val());
+        });
+
+        var before_lunch = $(this).find("input[name='before_lunch']").val();
+
+        var token = $(this).find("[name='_token']").val();
+
+        $.ajax({
+            'url': window.location.pathame,
+            'type': 'post',
+            'data': {'_token': token, 'day': day, 'ate': ate, 'drank': drank, 'before_lunch': before_lunch},
+        });
     });
 })

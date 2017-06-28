@@ -13,15 +13,17 @@ class CreateWeeksTable extends Migration
      */
     public function up()
     {
-        Schema::create('weeks', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-            $table->string('description');
-            // TODO: Rename to just 'number'
-            $table->integer('week_number')->unique();
-            $table->integer('maximum_points');
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('weeks')) {
+            Schema::create('weeks', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('title');
+                $table->string('description');
+                // TODO: Rename to just 'number'
+                $table->integer('week_number')->unique();
+                $table->integer('maximum_points');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

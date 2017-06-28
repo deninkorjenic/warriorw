@@ -13,13 +13,15 @@ class CreateEduTasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('edu_tasks', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-            $table->string('description');
-            $table->string('video_url');
-            $table->integer('points');
-        });
+        if(!Schema::hasTable('edu_tasks')) {
+            Schema::create('edu_tasks', function (Blueprint $table) {
+                $table->increments('id');
+                $table->timestamps();
+                $table->string('description');
+                $table->string('video_url');
+                $table->integer('points');
+            });
+        }
     }
 
     /**

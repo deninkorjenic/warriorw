@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Program;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Helpers\FoodDiaryHelper;
 
 class ProgramController extends Controller
 {
@@ -43,7 +44,17 @@ class ProgramController extends Controller
     		]);
     }
 
-    public function getFoodDiary() {
-        return view('weeks.food-diary');
+    public function getFoodDiary()
+    {
+        /**
+         * We need to get food diary from database
+         */
+        $food_diary = FoodDiaryHelper::read();
+        return view('weeks.food-diary', ['food_diary' => $food_diary]);
+    }
+
+    public function updateFoodDiary(Request $request)
+    {
+        echo FoodDiaryHelper::update($request);
     }
 }

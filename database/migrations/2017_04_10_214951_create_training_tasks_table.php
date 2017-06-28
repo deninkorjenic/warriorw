@@ -13,10 +13,12 @@ class CreateTrainingTasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('training_tasks', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-        });
+        if(!Schema::hasTable('training_tasks')) {
+            Schema::create('training_tasks', function (Blueprint $table) {
+                $table->increments('id');
+                $table->timestamps();
+            });
+        }
     }
 
     /**
