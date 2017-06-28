@@ -48,6 +48,7 @@ $(document).ready(function() {
     $(".food-diary-form").submit(function(event) {
         event.preventDefault();
 
+        // Hidden input field telling us which day we're updating
         var day = $(this).find("[name='day']").val();
 
         var ate = [];
@@ -60,6 +61,7 @@ $(document).ready(function() {
             drank.push($(this).val());
         });
 
+        // This field is used to etermine if we're updating before or after lunch
         var before_lunch = $(this).find("input[name='before_lunch']").val();
 
         var token = $(this).find("[name='_token']").val();
