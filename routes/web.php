@@ -21,6 +21,15 @@ Route::middleware(['auth', 'fullprofile'])->group(function() {
     // Task CRUD routes
     Route::resource('tasks', 'TaskController');
 
+    // Training CRUD routes
+    Route::resource('trainings', 'TrainingController');
+
+    // Education CRUD routes
+    Route::resource('educations', 'EducationController');
+
+    // Program CRUD routes
+    Route::resource('programs', 'ProgramController');
+
     // Rest of controllers
     Route::get('/home', 'HomeController@showSummary');
     Route::get('/', 'HomeController@showSummary');

@@ -5,16 +5,16 @@
                 <a href="{{ url('/home') }}" class="brand-logo"><img src="{{asset('images/logo-dark.png')}}" alt=""></a>
                 <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="fa fa-bars" aria-hidden="true"></i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li class="active"><a href="{{ url('/weeks') }}">Weeks</a></li>
+                    <li><a href="{{ url('/weeks') }}">Weeks</a></li>
                     <li><a href="{{ url('/tasks') }}">Tasks</a></li>
-                    <li><a href="#">Menu item 3</a></li>
-                    <li><a href="#">Menu item 4</a></li>
+                    <li><a href="{{ url('/trainings') }}">Trainings</a></li>
+                    <li><a href="{{ url('/educations') }}">Educations</a></li>
                 </ul>
                 <ul class="side-nav" id="mobile-nav">
-                    <li><a href="#">Weeks</a></li>
-                    <li><a href="#">Tasks</a></li>
-                    <li><a href="#">Menu item 3</a></li>
-                    <li><a href="#">Menu item 4</a></li>
+                    <li><a href="{{ url('/weeks') }}">Weeks</a></li>
+                    <li><a href="{{ url('/tasks') }}">Tasks</a></li>
+                    <li><a href="{{ url('/trainings') }}">Trainings</a></li>
+                    <li><a href="{{ url('/educations') }}">Educations</a></li>
                 </ul>
             </div>
         </nav>
