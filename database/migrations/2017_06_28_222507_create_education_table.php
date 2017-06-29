@@ -30,6 +30,7 @@ class CreateEducationTable extends Migration
                 $table->foreign('education_id')->references('id')->on('educations')->onDelete('cascade');
                 $table->integer('week_id')->unsigned()->index();
                 $table->foreign('week_id')->references('id')->on('weeks')->onDelete('cascade');
+                $table->boolean('watched')->default(false);
             });
         }
     }

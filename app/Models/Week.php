@@ -29,7 +29,7 @@ class Week extends Model
 
     public function program()
     {
-        return $this->belongsTo(Program::class);
+        return $this->belongsToMany(Program::class);
     }
 
     /**
@@ -63,6 +63,18 @@ class Week extends Model
      */
     public function isRelatedToEducation($educationId) {
         $result = $this->education()->where('education_id', $educationId);
+
+        return count($result->first()) > 0;
+    }
+
+    /**
+     * Checks if the relation to program exits and returns boolean
+     * 
+     * @param $programId
+     * @return bool
+     */
+    public function isRelatedToProgram($programId) {
+        $result = $this->program()->where('program_id', $programId);
 
         return count($result->first()) > 0;
     }

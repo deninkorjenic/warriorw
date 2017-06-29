@@ -6,6 +6,8 @@ use App\Models\Challenges;
 use App\Models\Program;
 use App\Models\User;
 use CountryState;
+use App\Models\UserProgram;
+use App\Models\Week;
 
 class ProfileHelper
 {
@@ -561,10 +563,13 @@ class ProfileHelper
          * Attach a program to the user
         **/
 
+        // We get new instance of program
+        $program = Program::with(['weeks.tasks', 'weeks.education', 'weeks.trainings'])->first();
         // TODO: changed database columns, we need to see which one will stay and which one will not and change code based on that
-        $wp = new Program;
-        $wp->user_id = auth()->user()->id;
-        $wp->create();
+        $user_program = new UserProgram;
+        $user_program->user_id = auth()->user()->id;
+        $user_program->program_json = $program->toJson();
+        $user_program->save();
 
         $properties = new \ArrayObject();
 

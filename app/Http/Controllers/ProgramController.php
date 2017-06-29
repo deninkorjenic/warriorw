@@ -6,6 +6,8 @@ use App\Models\Program;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Helpers\FoodDiaryHelper;
+use App\Models\Week;
+use App\Models\UserProgram;
 
 class ProgramController extends Controller
 {
@@ -30,10 +32,10 @@ class ProgramController extends Controller
     {
         $weeks = Week::all();
         if(count($weeks) <= 0) {
-            $request->session()->flash('message', 'Please first create some weeks before you can create tasks.');
+            $request->session()->flash('message', 'Please first create some weeks before you can create program.');
             return redirect('/weeks');
         }
-        return view('tasks.create', ['weeks' => $weeks]);
+        return view('programs.create', ['weeks' => $weeks]);
     }
 
     /**
@@ -43,17 +45,16 @@ class ProgramController extends Controller
      */
     public function store()
     {
-        $this->validate(\request(), [
+        $this->validate(request(), [
+            'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'points' => 'required|integer',
             'related_weeks' => 'required',
         ]);
+        $program = Program::create(request(['description', 'title']));
+        $program->weeks()->attach(request('related_weeks'));
+        session()->flash('message', 'Program successfully created');
 
-        $task = Task::create(request(['description', 'points']));
-        $task->weeks()->attach(request('related_weeks'));
-        session()->flash('message', 'Task successfully created');
-
-        return redirect('/tasks');
+        return redirect('/programs');
     }
 
     /**
@@ -64,9 +65,9 @@ class ProgramController extends Controller
      */
     public function show($id)
     {
-        $task = Task::findOrFail($id);
+        $program = Program::findOrFail($id);
 
-        return view('tasks.show', ['task' => $task]);
+        return view('programs.show', ['program' => $program]);
     }
 
     /**
@@ -77,10 +78,10 @@ class ProgramController extends Controller
      */
     public function edit($id)
     {
-        $task = Task::findOrFail($id);
+        $program = Program::findOrFail($id);
         $weeks = Week::all();
 
-        return view('tasks.edit', ['task' => $task, 'weeks' => $weeks, 'week_number' => '1']);
+        return view('programs.edit', ['program' => $program, 'weeks' => $weeks]);
     }
 
     /**
@@ -91,22 +92,22 @@ class ProgramController extends Controller
      */
     public function update($id)
     {
-        $task = Task::findOrFail($id);
+        $program = Program::findOrFail($id);
 
         $this->validate(request(), [
+            'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'points' => 'integer',
             'related_weeks' => 'required'
         ]);
 
-        $relatedWeeks = Input::get('related_weeks');
+        $relatedWeeks = request()->input('related_weeks');
 
-        $task->weeks()->sync(array_values($relatedWeeks));
-        $task->update(request(['description', 'points']));
+        $program->weeks()->sync(array_values($relatedWeeks));
+        $program->update(request(['description', 'title']));
 
-        session()->flash('message', 'Task successfully updated.');
+        session()->flash('message', 'Program successfully updated.');
 
-        return redirect('/tasks');
+        return redirect('/programs');
     }
 
     /**
@@ -117,31 +118,20 @@ class ProgramController extends Controller
      */
     public function destroy($id)
     {
-        $task = Task::findOrFail($id);
-        $task->delete();
-        session()->flash('message', 'Task succesfully deleted.');
+        $program = Program::findOrFail($id);
+        $program->delete();
+        session()->flash('message', 'Program succesfully deleted.');
     }
 
 
     public function getWeek($number) {
 
-    	$program = Program::where('user_id', auth()->user()->id)->first()->getAttributes();
-    	$week = json_decode($program['week_' . $number]);
+    	$program = UserProgram::where('user_id', auth()->user()->id)->first();
+    	$week = json_decode($program->program_json)->weeks[$number];
 
     	$current_week_start = Carbon::parse(auth()->user()->program_start)->addWeek($number);
-
-    	if($current_week_start->isPast()) {
-    		$webinars = [0,0];
-    	} else {
-	    	$current_week_start->addDay(2);
-	    	if ($current_week_start->isPast()) {
-	    		$webinars = [1,1];
-	    	} else {
-	    		$webinars = [1,0];
-	    	}
-    	}
 	    
-	    return view('weeks.week', ['week' => $week, 'webinars' => $webinars, 'number' => $number]);
+	    return view('weeks.week', ['week' => $week, 'number' => $number]);
 
     }
 

@@ -128,27 +128,7 @@
                   </table>
                 </div>
               </div>
-              <div class="col s12 m12 l4">
-                <div class="card">
-                  <div class="card-content">
-                    <span class="card-title">Your progress</span>
-                  </div>
-                    <div class="collection">                      
-                      @for($i=0; $i<16; $i++)
-                        @if($i > $data['current_week'])
-                          <div class="collection-item"">Week {{ $i }}</div>
-                        @else 
-                          <a href="{{url('/week-'.$i)}}" class="collection-item"">Week {{ $i }}</a>
-                        @endif
-                      @endfor
-                    </div>
-                </div>
-                <div class="card-panel teal">
-                  <h4 class="white-text">
-                    <a href="{{ url('/challenges') }}" class="white-text">Go to challenges</a>
-                  </h4>
-                </div>
-              </div>
+              @include('summary.weeks-sidebar')
             </div>
             <div class="row">
               <div class="col s12 m12 l12">
