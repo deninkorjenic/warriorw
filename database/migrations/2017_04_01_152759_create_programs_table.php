@@ -27,12 +27,6 @@ class CreateProgramsTable extends Migration
 
                 // TODO Used from old bitbucket migrations, Denin should explain about new database schema
                 $table->integer('program_type')->nullable();
-                for($i=0; $i<16; $i++) {
-                    $table->json('week_' . $i)->nullable();
-                }
-                for($i=1; $i<16; $i++) {
-                    $table->json('rq_' . $i)->nullable();
-                }
             });
         }
     }
