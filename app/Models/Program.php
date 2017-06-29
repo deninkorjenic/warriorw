@@ -6,7 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Program extends Model
 {
+
+    protected $fillable = [
+        'title',
+        'description',
+    ];
+
     public function weeks() {
-        return $this->hasMany(Week::class);
+        return $this->belongsToMany(Week::class);
     }
 }

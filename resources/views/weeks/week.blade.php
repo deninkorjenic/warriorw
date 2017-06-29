@@ -15,7 +15,7 @@
         <a href="{{ url('/challenges') }}" class="btn btn-large waves-effect">Challenges</a>
       </div>
     </div>
-    @if(isset($week->{'Education'}))
+    @if(isset($week->education))
     <div class="row">
       <div class="col s12">
         <div class="card">
@@ -33,8 +33,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                    @foreach($week->{'Education'} as $key=>$edu)
-                      @include('weeks.subviews.education', ['key' => $key, 'webinars' => $webinars, 'edu' => $edu])
+                    @foreach($week->education as $key=>$edu)
+                      @include('weeks.subviews.education', ['key' => $key, 'edu' => $edu])
                     @endforeach
                 </tbody>
               </table> 
@@ -57,7 +57,7 @@
       </div>
     </div>
     @endif
-    @if(isset($week->{'Tasks'}))
+    @if(isset($week->tasks))
       <div class="row">
         <div class="col s12">
           <div class="card">
@@ -74,17 +74,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($week->Tasks as $k=>$t)
-                    <tr>
-                      <td>{{ $k+1 }}.</td>
-                      <td>{{$t[0]}}</td>
-                      <td>
-                        <form action="#" class="right-align">
-                          <input type="checkbox" class="filled-in" name="task-{{$k+1}}" id="task-{{$k+1}}" @if($t[1]) checked="checked" checked @endif />
-                          <label for="task-{{$k+1}}"></label>
-                        </form>
-                      </td>
-                    </tr>
+                  @foreach($week->tasks as $key=>$task)
+                    @include('weeks.subviews.tasks', ['key' => $key, 'task' => $task])
                   @endforeach
                 </tbody>
               </table>
@@ -139,22 +130,11 @@
   </div>
  </div> 
 
-@if($webinars[0])
+@if(isset($webinars[0]))
   <div id="monday" class="modal modal-fixed-footer">
     <div class="modal-content">
       <h4>Monday webinar</h4>
       <iframe src="https://www.youtube.com/embed/CUWD-Zu2Cu4?ecver=2" width="640" height="360" frameborder="0" style="position:absolute;width:100%;height:100%;left:0" allowfullscreen></iframe>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
-    </div>
-  </div>
-@endif
-@if($webinars[1])
-  <div id="wednesday" class="modal modal-fixed-footer">
-    <div class="modal-content">
-      <h4>Modal Header</h4>
-      <iframe src="https://www.youtube.com/embed/CUWD-Zu2Cu4?ecver=2" width="640" height="340" frameborder="0" style="position:absolute;width:100%;height:100%;left:0" allowfullscreen></iframe>
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>

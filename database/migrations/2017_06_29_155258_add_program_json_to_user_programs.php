@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGoalsTable extends Migration
+class AddProgramJsonToUserPrograms extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateGoalsTable extends Migration
      */
     public function up()
     {
-        if(!Schema::hasTable('goals')) {
-            Schema::create('goals', function (Blueprint $table) {
-                $table->increments('id');
-                $table->timestamps();
-                $table->string('name');
-                $table->string('description');
-            });
+        if(Schema::hasTable('user_programs')) {
+            if(!Schema::hasColumn('user_programs', 'program_json')) {
+                Schema::table('user_programs', function(Blueprint $table) {
+                    $table->json('program_json');
+                });
+            }
         }
     }
 
@@ -30,6 +29,6 @@ class CreateGoalsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('goals');
+        //
     }
 }

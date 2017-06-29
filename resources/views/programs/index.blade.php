@@ -9,19 +9,19 @@
         <thead>
         <tr>
             <th>Program Title</th>
-            <th>Week Number</th>
-            <th>Total Points</th>
+            <th>Program Description</th>
+            <th>Number of Weeks</th>
         </tr>
         </thead>
 
         <tbody>
-            @if (isset($weeks))
-                @foreach($weeks as $week)
+            @if(isset($programs))
+                @foreach($programs as $program)
                     <tr>
-                        <td><a href="{{ url('/weeks/') . '/' . $week->id }}">{{ $week->title }}</a></td>
-                        <td>{{ $week->week_number }}</td>
-                        <td>{{ $week->maximum_points }}</td>
-                        <td class="text-center"><a class="btn" href="{{ url('/weeks') . '/' . $week->id . '/edit' }}">Edit</a></td>
+                        <td><a href="{{ url('/programs/') . '/' . $program->id }}">{{ $program->title }}</a></td>
+                        <td>{{ $program->description }}</td>
+                        <td>{{ count($program->weeks) }}</td>
+                        <td class="text-center"><a class="btn" href="{{ url('/programs') . '/' . $program->id . '/edit' }}">Edit</a></td>
                     </tr>
                 @endforeach
             @endif
@@ -30,5 +30,5 @@
 
     <hr>
     <br>
-    <a href="{{ url('/weeks/create') }}" class="btn">Crete Week</a>
+    <a href="{{ url('/programs/create') }}" class="btn">Crete Program</a>
 @endsection

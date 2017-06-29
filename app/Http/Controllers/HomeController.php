@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Program;
+use App\Models\UserProgram;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Helpers\FoodDiaryHelper;
@@ -43,7 +43,7 @@ class HomeController extends Controller
         for($i = 0; $i <= 15; $i++ ) {
             $days = array();
             for($j=1; $j<=7; $j++) {
-                // TODO switch those two line, used only for DEMO purpose
+                // TODO switch those two lines, used only for DEMO purpose
                 $calendarDate = Carbon::parse(auth()->user()->program_start)->addDays($n-35);
                 //$calendarDate = Carbon::parse(auth()->user()->program_start)->addDays($n);
                 if($calendarDate->isPast()) {
@@ -61,7 +61,8 @@ class HomeController extends Controller
             array_push($calendar, $days);
         }
 
-        
+        // We get program_json form user_programs table, this is already initialised and full program
+        $program = UserProgram::where('user_id', auth()->user()->id)->first();
 
         $data = array(
                 'created_at'    => auth()->user()->created_at,
@@ -69,8 +70,10 @@ class HomeController extends Controller
                 'week_one'      => Carbon::parse(auth()->user()->week_one),
                 'last_day'      => Carbon::parse(auth()->user()->last_day),
                 'calendar'      => $calendar,
-                'current_week'  => Program::getCurrentWeek(),
-                'goals'         => json_decode(auth()->user()->goals)
+
+                'current_week'  => UserProgram::getCurrentWeek(),
+                'goals'         => json_decode(auth()->user()->goals),
+                'program_json'  => json_decode($program->program_json),
             );
 
         return view('summary.index', ['data' => $data]);
