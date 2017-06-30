@@ -127,25 +127,34 @@ class ProgramController extends Controller
     public function getWeek($number) {
 
     	$program = UserProgram::where('user_id', auth()->user()->id)->first();
-    	$week = json_decode($program->program_json)->weeks[$number];
+        $week = '';
+        foreach(json_decode($program->program_json)->weeks as $w) {
+            if($w->id == $number) {
+                $week = $w;
+            }
+        }
+
+        $quizes = Week::find($week->id)->quizes()->get();
 
     	$current_week_start = Carbon::parse(auth()->user()->program_start)->addWeek($number);
 	    
-	    return view('weeks.week', ['week' => $week, 'number' => $number]);
+	    return view('weeks.week', ['week' => $week, 'quizes' => $quizes]);
 
     }
 
 
     public function getQuiz($number) {
 
-    	$program = Program::where('user_id', auth()->user()->id)->first()->getAttributes();
-    	$week = json_decode($program['week_' . $number]);
-    	$rq = json_decode($program['rq_' . $number]);
-    	return view('weeks.quiz', [
-    			'week' => $week,
-    			'quiz' => $rq,
-                'number' => $number
-    		]);
+    	$program = UserProgram::where('user_id', auth()->user()->id)->first();
+    	$week = '';
+        foreach(json_decode($program->program_json)->weeks as $w) {
+            if($w->id == $number) {
+                $week = $w;
+            }
+        }
+    	
+        $quizes = Week::find($week->id)->quizes()->get();
+    	return view('weeks.quiz', ['week' => $week,'quizes' => $quizes]);
     }
 
     public function getFoodDiary()

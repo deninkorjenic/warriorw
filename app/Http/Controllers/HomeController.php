@@ -9,15 +9,6 @@ use App\Helpers\FoodDiaryHelper;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -33,6 +24,10 @@ class HomeController extends Controller
      * Show profile summary
     **/
     public function showSummary() {
+        // If user is admin we redirect him to admin section
+        if(auth()->user()->role === 'admin') {
+            return redirect('/programs');
+        }
         /**
          * Set up the calendar on home
         **/

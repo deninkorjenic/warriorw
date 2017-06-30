@@ -13,8 +13,8 @@ Auth::routes();
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::middleware(['auth', 'fullprofile'])->group(function() {
+// Only admin is allowed
+Route::middleware(['auth', 'isuseradmin'])->group(function() {
     // Weeks CRUD routes
     Route::resource('weeks', 'WeekController');
 
@@ -30,6 +30,18 @@ Route::middleware(['auth', 'fullprofile'])->group(function() {
     // Program CRUD routes
     Route::resource('programs', 'ProgramController');
 
+    // Quizes CRUD routes
+    Route::resource('quizes', 'QuizController');
+});
+// User is not able to complete his/her profile if there's no program to sell
+Route::middleware(['auth', 'programexistance'])->group(function() {
+    Route::get('/profile-setup', 'ProfileController@index');
+    Route::post('/profile-setup', 'ProfileController@updateProfile');
+    Route::get('/screening-test', 'ProfileController@screeningTest');
+    Route::post('/screening-test', 'ProfileController@handleScreeningTest');
+});
+// Routes available only after profile is finished and user payed for program
+Route::middleware(['auth', 'fullprofile'])->group(function() {
     // Rest of controllers
     Route::get('/home', 'HomeController@showSummary');
     Route::get('/', 'HomeController@showSummary');
@@ -45,14 +57,9 @@ Route::middleware(['auth', 'fullprofile'])->group(function() {
     Route::get('/challenges', 'ChallengesController@index');
     Route::post('/challenges', 'ChallengesController@setUpChallenges');
 });
-
 Route::middleware('auth')->group(function() {
-    Route::get('/profile-setup', 'ProfileController@index');
     Route::get('/dashboard', 'AdminController@getDashboard');
     Route::get('/archive', 'AdminController@getArchive');
-    Route::post('/profile-setup', 'ProfileController@updateProfile');
-    Route::get('/screening-test', 'ProfileController@screeningTest');
-    Route::post('/screening-test', 'ProfileController@handleScreeningTest');
     Route::get('/logout', function() {
         Auth::logout();
         return redirect('/home');

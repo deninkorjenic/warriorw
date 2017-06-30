@@ -13,23 +13,53 @@ class Week extends Model
         'maximum_points',
     ];
 
+    /**
+     * Get all tasks related to current week
+     * @return Collection
+     */
+    
     public function tasks() {
         return $this->belongsToMany(Task::class);
     }
 
+    /**
+     * Get all trainings related to current week
+     * @return Collection
+     */
+    
     public function trainings()
     {
         return $this->belongsToMany(Training::class);
     }
 
+    /**
+     * Get all educations related to current week
+     * @return Collection
+     */
+    
     public function education()
     {
         return $this->belongsToMany(Education::class);
     }
 
+    /**
+     * Get program related to current week
+     * @return Collection
+     */
+    
     public function program()
     {
         return $this->belongsToMany(Program::class);
+    }
+
+    /**
+     * Get quiz related to current week
+     * @return Collection
+     */
+    
+    public function quizes()
+    {
+        return $this->hasMany(Quiz::class);
     }
 
     /**
@@ -75,6 +105,18 @@ class Week extends Model
      */
     public function isRelatedToProgram($programId) {
         $result = $this->program()->where('program_id', $programId);
+
+        return count($result->first()) > 0;
+    }
+
+    /**
+     * Checks if the relation to quiz exits and returns boolean
+     * 
+     * @param $programId
+     * @return bool
+     */
+    public function isRelatedToQuiz($weekId) {
+        $result = $this->quizes()->where('week_id', $weekId);
 
         return count($result->first()) > 0;
     }

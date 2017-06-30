@@ -7,9 +7,9 @@
         @if(isset($data['program_json']->weeks))
           @foreach($data['program_json']->weeks as $key => $week)
             @if($key > $data['current_week'])
-              <div class="collection-item"">Week {{ $key }}</div>
+              <div class="collection-item"">Week {{ $week->week_number }}</div>
             @else 
-              <a href="{{url('/week-'.$key)}}" class="collection-item"">Week {{ $key }}</a>
+              <a href="{{url('/week-'.$week->id)}}" class="collection-item"">Week {{ $week->week_number }}</a>
             @endif
           @endforeach
         @endif

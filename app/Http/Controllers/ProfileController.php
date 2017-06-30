@@ -16,6 +16,8 @@ class ProfileController extends Controller
     {
         if(auth()->user()->finished_profile) {
             return redirect('/home');
+        } elseif(auth()->user()->role === 'admin') {
+            return redirect('/programs');
         }
     	return view('profile.index', ['userInfo' => ProfileHelper::getUserInfo()]);
     }
@@ -29,6 +31,8 @@ class ProfileController extends Controller
     public function updateProfile(Request $request) {
         if(auth()->user()->finished_profile) {
             return redirect('/home');
+        } elseif(auth()->user()->role === 'admin') {
+            return redirect('/programs');
         }
         ProfileHelper::updateProfile($request);
 
@@ -42,6 +46,8 @@ class ProfileController extends Controller
     public function screeningTest() {
         if(auth()->user()->finished_profile) {
             return redirect('/home');
+        } elseif(auth()->user()->role === 'admin') {
+            return redirect('/programs');
         }
     	return view('profile.screening');
     }
@@ -53,6 +59,8 @@ class ProfileController extends Controller
     public function handleScreeningTest(Request $request) {
         if(auth()->user()->finished_profile) {
             return redirect('/home');
+        } elseif(auth()->user()->role === 'admin') {
+            return redirect('/programs');
         }
         if(ScreeningHelper::handleScreeningTest($request)) {
             return redirect('/home');

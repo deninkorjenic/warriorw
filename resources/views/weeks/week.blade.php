@@ -8,8 +8,8 @@
         <h4>Weekly Overview</h4>
       </div>
       <div class="col s12">
-        @if(!$number == 0)
-          <a href="{{ url('/quiz-') . $number }}" class="btn btn-large waves-effect">Revision Quiz</a>
+        @if(!$week->week_number == 0)
+          <a href="{{ url('/quiz-') . $week->id }}" class="btn btn-large waves-effect">Revision Quiz</a>
           <a href="{{ url('/food-diary') }}" class="btn btn-large waves-effect">4 day food diary</a>
         @endif
         <a href="{{ url('/challenges') }}" class="btn btn-large waves-effect">Challenges</a>

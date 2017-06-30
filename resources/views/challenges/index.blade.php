@@ -55,8 +55,10 @@
                                   <div class="row">
                                     @for($i=1; $i<6; $i++)
                                       <div class="col s2">
-                                        <input type="checkbox" id="c1_w3_{{$i}}" />
-                                        <label for="c1_w3_{{$i}}"></label>
+                                        <p>
+                                          <input type="checkbox" id="c1_w1_{{$k}}_{{$i}}" />
+                                          <label for="c1_w1_{{$k}}_{{$i}}"></label>
+                                        </p>
                                       </div>
                                     @endfor
                                   </div>
@@ -65,8 +67,10 @@
                                   <div class="row">
                                     @for($i=1; $i<6; $i++)
                                       <div class="col s2">
-                                        <input type="checkbox" id="c1_w2_{{$i}}" />
-                                        <label for="c1_w2_{{$i}}"></label>
+                                        <p>
+                                          <input type="checkbox" id="c1_w2_{{$k}}_{{$i}}" />
+                                          <label for="c1_w2_{{$k}}_{{$i}}"></label>
+                                        </p>
                                       </div>
                                     @endfor
                                   </div>
@@ -75,8 +79,10 @@
                                   <div class="row">
                                     @for($i=1; $i<6; $i++)
                                       <div class="col s2">
-                                        <input type="checkbox" id="c1_w3_{{$i}}" />
-                                        <label for="c1_w3_{{$i}}"></label>
+                                        <p>
+                                          <input type="checkbox" id="c1_w3_{{$k}}_{{$i}}" />
+                                          <label for="c1_w3_{{$k}}_{{$i}}"></label>
+                                        </p>
                                       </div>
                                     @endfor
                                   </div>
@@ -175,79 +181,78 @@
               <div class="row">
                 <div class="col s12">
                   <ul class="collapsible" data-collapsible="accordion">
-
-                    @foreach($habits[0] as $habit)
-                      <li>
-                        <div class="collapsible-header">{!! $habit !!}</div>
-                        <div class="collapsible-body grey lighten-4">
-                          <table>
-<!--                             <thead>
-                              <tr>
-                                  <th>Week 1</th>
-                                  <th>Week 2</th>
-                                  <th>Week 3</th>
-                                  <th>Week 4</th>
-                                  <th>Week 5</th>
-                              </tr>
-                            </thead> -->
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <div class="row" style="margin-bottom: 0;">
-                                    @for($i=1; $i<2; $i++)
-                                      <div class="col s12">
-                                        <input type="checkbox" id="c2_w3_{{$i}}" disabled="disabled" />
-                                        <label for="c1_w3_{{$i}}">Week 1</label>
-                                      </div>
-                                    @endfor
-                                  </div>
-                                </td>
-                                <td>
-                                  <div class="row" style="margin-bottom: 0;">
-                                    @for($i=1; $i<2; $i++)
-                                      <div class="col s12">
-                                        <input type="checkbox" id="c2_w3_{{$i}}" disabled="disabled" />
-                                        <label for="c1_w3_{{$i}}">Week 2</label>
-                                      </div>
-                                    @endfor
-                                  </div>
-                                </td>
-                                <td>
-                                  <div class="row" style="margin-bottom: 0;">
-                                    @for($i=1; $i<2; $i++)
-                                      <div class="col s12">
-                                        <input type="checkbox" id="c2_w3_{{$i}}" disabled="disabled" />
-                                        <label for="c1_w3_{{$i}}">Week 3</label>
-                                      </div>
-                                    @endfor
-                                  </div>
-                                </td>
-                                <td>
-                                  <div class="row" style="margin-bottom: 0;">
-                                    @for($i=1; $i<2; $i++)
-                                      <div class="col s12">
-                                        <input type="checkbox" id="c2_w3_{{$i}}" disabled="disabled" />
-                                        <label for="c1_w3_{{$i}}">Week 4</label>
-                                      </div>
-                                    @endfor
-                                  </div>
-                                </td>
-                                <td>
-                                  <div class="row" style="margin-bottom: 0;">
-                                    @for($i=1; $i<2; $i++)
-                                      <div class="col s12">
-                                        <input type="checkbox" id="c2_w3_{{$i}}" disabled="disabled" />
-                                        <label for="c1_w3_{{$i}}">Week 5</label>
-                                      </div>
-                                    @endfor
-                                  </div>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </li>
-                    @endforeach
+                      @foreach($habits[0] as $key => $habit)
+                        <li>
+                          <div class="collapsible-header">{!! $habit !!}</div>
+                          <div class="collapsible-body grey lighten-4">
+                            <table>
+                              <thead>
+                                <tr>
+                                    <th>Week 1</th>
+                                    <th>Week 2</th>
+                                    <th>Week 3</th>
+                                    <th>Week 4</th>
+                                    <th>Week 5</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <div class="row" style="margin-bottom: 0;">
+                                      @for($i=1; $i<2; $i++)
+                                        <div class="col s12">
+                                          <input type="checkbox" id="c2_w1_{{$key}}_{{$i}}" disabled="disabled" />
+                                          <label for="c1_w3_{{$key}}_{{$i}}">Week 1</label>
+                                        </div>
+                                      @endfor
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="row" style="margin-bottom: 0;">
+                                      @for($i=1; $i<2; $i++)
+                                        <div class="col s12">
+                                          <input type="checkbox" id="c2_w2_{{$key}}_{{$i}}" disabled="disabled" />
+                                          <label for="c1_w3_{{$key}}_{{$i}}">Week 2</label>
+                                        </div>
+                                      @endfor
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="row" style="margin-bottom: 0;">
+                                      @for($i=1; $i<2; $i++)
+                                        <div class="col s12">
+                                          <input type="checkbox" id="c2_w3_{{$key}}_{{$i}}" disabled="disabled" />
+                                          <label for="c1_w3_{{$key}}_{{$i}}">Week 3</label>
+                                        </div>
+                                      @endfor
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="row" style="margin-bottom: 0;">
+                                      @for($i=1; $i<2; $i++)
+                                        <div class="col s12">
+                                          <input type="checkbox" id="c2_w4_{{$key}}_{{$i}}" disabled="disabled" />
+                                          <label for="c1_w3_{{$key}}_{{$i}}">Week 4</label>
+                                        </div>
+                                      @endfor
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="row" style="margin-bottom: 0;">
+                                      @for($i=1; $i<2; $i++)
+                                        <div class="col s12">
+                                          <input type="checkbox" id="c2_w5_{{$key}}_{{$i}}" disabled="disabled" />
+                                          <label for="c1_w3_{{$key}}_{{$i}}">Week 5</label>
+                                        </div>
+                                      @endfor
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </li>
+                      @endforeach
                   </ul>                  
                 </div>
               </div>

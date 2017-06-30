@@ -80,7 +80,7 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
         $weeks = Week::all();
 
-        return view('tasks.edit', ['task' => $task, 'weeks' => $weeks, 'week_number' => '1']);
+        return view('tasks.edit', ['task' => $task, 'weeks' => $weeks]);
     }
 
     /**

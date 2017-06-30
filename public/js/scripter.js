@@ -72,4 +72,12 @@ $(document).ready(function() {
             'data': {'_token': token, 'day': day, 'ate': ate, 'drank': drank, 'before_lunch': before_lunch},
         });
     });
+
+    $(".add-answer").click(function() {
+        var newAnswer = "<div class='row'><div class='input-field col s12'>";
+            newAnswer += "<input type='text' id='answer' name='answer[]' required></input>";
+            newAnswer += "<label for='answer'>Answer</label></div></div>";
+
+        $(newAnswer).insertBefore(this);
+    })
 })
