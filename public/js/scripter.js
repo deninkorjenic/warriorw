@@ -104,4 +104,18 @@ $(document).ready(function() {
         }
         $("input[name='related_w']").val(program_related_weeks.join(', '));
     });
+
+    /**
+     * Code used to open education modal
+     */
+    $(".edu-modal-trigger").click(function(event) {
+        event.preventDefault();
+        var video_url = $(this).attr('href');
+
+        $(".watch-edu-modal iframe").attr('src', video_url);
+        $(".watch-edu-modal").modal({
+            complete: function() { $(".watch-edu-modal iframe").attr('src', '') } // Callback for Modal close
+        });
+        $(".watch-edu-modal").modal("open");
+    })
 })

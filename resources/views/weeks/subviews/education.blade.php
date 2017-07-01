@@ -2,7 +2,7 @@
   <td>{{ $key+1 }}.</td>
   <td>{{$edu->description}}</td>
   <td>
-    <a href="{{ $edu->video_url }}" class="black-text modal-trigger"><i class="fa fa-video-camera" aria-hidden="true"></i> Watch video</a>
+    <a href="{{ $edu->video_url }}" class="black-text edu-modal-trigger"><i class="fa fa-video-camera" aria-hidden="true"></i> Watch video</a>
   </td>
   <td>
     <form action="{{ url('/week/education') }}" method="POST" class="right-align">
