@@ -42,7 +42,7 @@
                                         name="related_week"
                                         value="{{$week->id}}"
                                 />
-                                <label for="week-{{$week->id}}">{{ 'Week ' . $week->week_number }}</label>
+                                <label for="week-{{$week->id}}">{!! $week->title !!}</label>
                             </li>
                         @endforeach
                     </ul>

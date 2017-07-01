@@ -53,7 +53,7 @@
                                         checked="checked"
                                     @endif
                             />
-                            <label for="week-{{$week->id}}">{{ 'Week ' . $week->week_number }}</label>
+                            <label for="week-{{$week->id}}">{!! $week->title !!}</label>
                         </li>
                         @endforeach
                             @if ($errors->has('related_week'))

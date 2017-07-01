@@ -43,7 +43,7 @@
                     @if (isset($weeks))
                         @foreach($weeks as $week)
                             <tr>
-                                <td><a href="{{ url('/weeks/') . '/' . $week->id }}">{{ $week->title }}</a></td>
+                                <td><a href="{{ url('/weeks/') . '/' . $week->id }}">{!! $week->title !!}</a></td>
                                 <td>{{ $week->week_number }}</td>
                                 <td>{{ $week->maximum_points }}</td>
                                 <td><input
@@ -53,7 +53,7 @@
                                         name="related_week[]"
                                         value="{{$week->id}}"
                                     />
-                                    <label for="week-{{$week->id}}">{{ 'Week ' . $week->week_number }}</label>
+                                    <label for="week-{{$week->id}}">{!! $week->title !!}</label>
                                 </td>
                             </tr>
                         @endforeach
