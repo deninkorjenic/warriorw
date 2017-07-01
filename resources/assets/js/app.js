@@ -109,7 +109,7 @@ if (path == '/register' || path == '/warriorw/public/register') {
 		});
 	});
 	
-} else if (path === '/profile-setup') {
+} else if (path === '/profile-setup' || path == '/warriorw/public/profile-setup') {
 	$(document).ready(function(){
 		$('select').material_select();
 		$('#country').change(function(){
