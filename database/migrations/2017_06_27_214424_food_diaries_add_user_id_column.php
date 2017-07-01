@@ -27,6 +27,10 @@ class FoodDiariesAddUserIdColumn extends Migration
      */
     public function down()
     {
-        //
+        if(Schema::hasColumn('food_diaries', 'user_id')) {
+            Schema::table('food_diaries', function(Blueprint $table) {
+                $table->dropColumn('user_id');
+            });
+        }
     }
 }

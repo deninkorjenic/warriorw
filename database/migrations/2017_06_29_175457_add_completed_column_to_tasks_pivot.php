@@ -29,6 +29,12 @@ class AddCompletedColumnToTasksPivot extends Migration
      */
     public function down()
     {
-        //
+        if(Schema::hasTable('task_week')) {
+            if(Schema::hasColumn('task_week', 'completed')) {
+                Schema::table('task_week', function (Blueprint $table) {
+                    $table->dropColumn('completed');
+                });
+            }
+        }
     }
 }

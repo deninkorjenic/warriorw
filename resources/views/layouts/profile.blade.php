@@ -7,13 +7,11 @@
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="{{ url('/home') }}">Summary</a></li>
         <li><a href="{{ url('/challenges') }}">Challenges</a></li>
-        <li><a href="{{ url('/dashboard') }}">Admin</a></li>
         <li><a href="#" data-activates="slide-out" class="button-collapse show-on-large">Notifications <span class="badge new white red-text">1</span></a>
       </ul>
       <ul class="side-nav" id="mobile-nav">
         <li><a href="{{ url('/home') }}">Summary</a></li>
         <li><a href="{{ url('/challenges') }}">Challenges</a></li>
-        <li><a href="{{ url('/dashboard') }}">Admin</a></li>
         <li><a href="#" data-activates="slide-out" class="button-collapse show-on-large">Notifications <span class="badge new white red-text">1</span></a></li>
       </ul>
     </div>

@@ -29,6 +29,12 @@ class AddProgramJsonToUserPrograms extends Migration
      */
     public function down()
     {
-        //
+        if(Schema::hasTable('user_programs')) {
+            if(Schema::hasColumn('user_programs', 'program_json')) {
+                Schema::table('user_programs', function(Blueprint $table) {
+                    $table->dropColumn('program_json');
+                });
+            }
+        }
     }
 }

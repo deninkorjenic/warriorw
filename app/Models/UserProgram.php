@@ -28,6 +28,16 @@ class UserProgram extends Model
         return $current_week;
     }
 
+    public static function getOverallPointsAvailable()
+    {
+        $current_week = self::getCurrentWeek();
+
+        $program = self::where('user_id', auth()->user()->id)->first();
+
+        return json_decode($program->program_json)->weeks[$current_week]->maximum_points;
+
+    }
+
     public static function getUsersProgram($userId)
     {
         

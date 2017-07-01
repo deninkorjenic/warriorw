@@ -29,6 +29,12 @@ class AddWatchedColumnToEducation extends Migration
      */
     public function down()
     {
-        //
+        if(Schema::hasTable('education_week')) {
+            if(Schema::hasColumn('education_week', 'watched')) {
+                Schema::table('education_week', function (Blueprint $table) {
+                    $table->dropColumn('watched');
+                });
+            }
+        }
     }
 }

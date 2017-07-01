@@ -312,8 +312,12 @@
                         <option value="horse riding">Horse riding</option>
                         <option value="cricket">Cricket</option>
                         <option value="baseball">Baseball</option>
+                        <option value="other not listed">Other not listed</option>
                       </select>
-                      <label>What kind of physical activities do you enjoy most?</label>
+                      <div class="input-field hidden col s12 m6 q13-other">
+                        <input id="q13_a" name="q13_a" type="text" class="validate">
+                        <label for="q13_a">Please enter what sport/activity do you prefer</label> 
+                      </div>
                     </div>
                   </div>
                 </div>

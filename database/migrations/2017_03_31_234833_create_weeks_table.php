@@ -19,7 +19,7 @@ class CreateWeeksTable extends Migration
                 $table->string('title');
                 $table->string('description');
                 // TODO: Rename to just 'number'
-                $table->integer('week_number')->unique();
+                $table->integer('week_number');
                 $table->integer('maximum_points');
                 $table->timestamps();
             });

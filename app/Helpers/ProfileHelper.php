@@ -48,6 +48,7 @@ class ProfileHelper
             'horse riding'              =>      2,
             'cricket'                   =>      2,
             'baseball'                  =>      2,
+            'other not listed'          =>      2,
         ];
 
         return $activities[$activity];
@@ -535,14 +536,6 @@ class ProfileHelper
         $week_one = Carbon::parse($week_one);
 
         /**
-         * Get the last day of first week and add
-         * 15 weeks/105 days to it
-        **/
-        $dt = auth()->user()->program_start;
-        $last_day = new $dt;
-        $last_day->day = $last_day->day+111;
-
-        /**
          * Create a new instance of challenges and
          * assign it to user.
         **/
@@ -570,6 +563,17 @@ class ProfileHelper
         $user_program->user_id = auth()->user()->id;
         $user_program->program_json = $program->toJson();
         $user_program->save();
+
+        // TODO: test last day in user info on summary
+        /**
+         * Get the last day of first week and add
+         * number of weeks from program to it
+        **/
+        $weeks = (count(json_decode($user_program->program_json)->weeks) * 7);
+
+        $dt = auth()->user()->program_start;
+        $last_day = new $dt;
+        $last_day->day = $last_day->day + $weeks;
 
         $properties = new \ArrayObject();
 

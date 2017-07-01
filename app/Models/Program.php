@@ -12,6 +12,10 @@ class Program extends Model
         'description',
     ];
 
+    protected $casts = [
+        'related_weeks' => 'array',
+    ];
+
     public function weeks() {
         return $this->belongsToMany(Week::class);
     }

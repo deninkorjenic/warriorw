@@ -17,8 +17,8 @@ $('.js-delete').on('click', function(e) {
     var id = $(this).data('id');
     var token = $(this).data('token');
     // TODO: remove this after vhost is set up
-    var url = '/warriorw/public/' + name + '/' + id;
-    //var url = '/' + name + '/' + id;
+    //var url = '/warriorw/public/' + name + '/' + id;
+    var url = '/' + name + '/' + id;
 
     if (result) {
         $.ajax({
@@ -27,8 +27,8 @@ $('.js-delete').on('click', function(e) {
             'data': {_method: 'delete', _token: token},
             'success': function () {
                 // TODO: This needs to be changed after vhost
-                window.location.replace('/warriorw/public/' + name);
-                //window.location.replace('/' + name)
+                //window.location.replace('/warriorw/public/' + name);
+                window.location.replace('/' + name)
             }
         });
     }
@@ -79,5 +79,29 @@ $(document).ready(function() {
             newAnswer += "<label for='answer'>Answer</label></div></div>";
 
         $(newAnswer).insertBefore(this);
-    })
+    });
+
+    // Other not listed screening-test
+    $("#q13").change(function() {
+        var value = $(this).val();
+        if($.inArray('other not listed', value) > -1) {
+            $(".q13-other").removeClass('hidden');
+        } else {
+            $(".q13-other").addClass('hidden');
+        }
+    });
+
+    // Used to sort program weeks in order they are selected
+    var program_related_weeks = [];
+
+    $(".program-related-weeks").change(function() {
+        if($(this).prop("checked")) {
+            program_related_weeks.push($(this).val());
+        } else {
+            if($.inArray($(this).val(), program_related_weeks) > -1) {
+                program_related_weeks.splice( program_related_weeks.indexOf( $(this).val() ), 1);
+            }
+        }
+        $("input[name='related_w']").val(program_related_weeks.join(', '));
+    });
 })

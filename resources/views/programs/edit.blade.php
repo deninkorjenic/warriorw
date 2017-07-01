@@ -4,7 +4,7 @@
     <h2>Edit Program</h2>
 
     <div class="row">
-        <form class="col s12" method="POST" action="{{ url('/programs') . '/' . $program->id  }}">
+        <form id="edit-program-form" class="col s12" method="POST" action="{{ url('/programs') . '/' . $program->id  }}">
             {{ csrf_field() }}
             <input name="_method" type="hidden" value="PATCH">
             <div class="row">
@@ -52,16 +52,15 @@
                                 <td><input
                                         type="checkbox"
                                         id="week-{{$week->id}}"
-                                        name="related_weeks[]"
+                                        class="program-related-weeks"
+                                        name="related_week[]"
                                         value="{{$week->id}}"
-                                        @if ($week->isRelatedToProgram($program->id))
-                                            checked="checked"
-                                        @endif
                                     />
                                     <label for="week-{{$week->id}}">{{ 'Week ' . $week->week_number }}</label>
                                 </td>
                             </tr>
                         @endforeach
+                        <input type="text" name="related_w" hidden>
                     @endif
                 </tbody>
             </table>

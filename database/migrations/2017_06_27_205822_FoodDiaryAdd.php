@@ -27,6 +27,10 @@ class FoodDiaryAdd extends Migration
      */
     public function down()
     {
-        //
+        if(Schema::hasColumn('users', 'food_diary')) {
+            Schema::table('users', function(Blueprint $table) {
+                $table->dropColumn('food_diary');
+            });
+        }
     }
 }

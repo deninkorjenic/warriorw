@@ -22,12 +22,12 @@
     </li>
     <li class="collection-item">
       <div class="pull-left"><i class="fa fa-rocket" aria-hidden="true"></i> <strong>Running tally</strong> </div>
-      <div class="pull-right">0</div>
+      <div class="pull-right">-</div>
       <div class="clearfix"></div>
     </li>
     <li class="collection-item">
       <div class="pull-left"><i class="fa fa-circle-o-notch" aria-hidden="true"></i> <strong>Overall points available</strong> </div>
-      <div class="pull-right">0</div>
+      <div class="pull-right">{{ $data['overall_points'] }}</div>
       <div class="clearfix"></div>
     </li>
     <li class="collection-item">

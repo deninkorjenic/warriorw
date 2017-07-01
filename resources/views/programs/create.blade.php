@@ -49,13 +49,15 @@
                                 <td><input
                                         type="checkbox"
                                         id="week-{{$week->id}}"
-                                        name="related_weeks[]"
+                                        class="program-related-weeks"
+                                        name="related_week[]"
                                         value="{{$week->id}}"
                                     />
                                     <label for="week-{{$week->id}}">{{ 'Week ' . $week->week_number }}</label>
                                 </td>
                             </tr>
                         @endforeach
+                        <input type="text" name="related_w" hidden>
                     @endif
                 </tbody>
             </table>

@@ -16,6 +16,9 @@ class CheckProgramExistance
      */
     public function handle($request, Closure $next)
     {
+        if(auth()->user()->role == 'admin') {
+            return redirect('/programs');
+        }
         if(Program::all()->count() > 0) {
             return $next($request);
         } else {

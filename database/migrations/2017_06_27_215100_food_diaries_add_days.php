@@ -42,6 +42,25 @@ class FoodDiariesAddDays extends Migration
      */
     public function down()
     {
-        //
+        if(Schema::hasColumn('food_diaries', 'day_1')) {
+            Schema::table('food_diaries', function(Blueprint $table) {
+                $table->dropColumn('day_1');
+            });
+        }
+        if(Schema::hasColumn('food_diaries', 'day_2')) {
+            Schema::table('food_diaries', function(Blueprint $table) {
+                $table->dropColumn('day_2');
+            });
+        }
+        if(Schema::hasColumn('food_diaries', 'day_3')) {
+            Schema::table('food_diaries', function(Blueprint $table) {
+                $table->dropColumn('day_3');
+            });
+        }
+        if(Schema::hasColumn('food_diaries', 'day_4')) {
+            Schema::table('food_diaries', function(Blueprint $table) {
+                $table->dropColumn('day_4');
+            });
+        }
     }
 }

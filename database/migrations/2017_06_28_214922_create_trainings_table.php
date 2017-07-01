@@ -40,6 +40,7 @@ class CreateTrainingsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('training_week');
+        Schema::dropIfExists('trainings');
     }
 }

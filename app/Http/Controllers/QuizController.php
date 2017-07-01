@@ -29,7 +29,7 @@ class QuizController extends Controller
     {
         $weeks = Week::all();
         if(count($weeks) <= 0) {
-            $request->session()->flash('message', 'Please first create some weeks before you can create quiz.');
+            request()->session()->flash('message', 'Please first create some weeks before you can create quiz.');
             return redirect('/weeks');
         }
         return view('quizes.create', ['weeks' => $weeks]);

@@ -44,9 +44,32 @@ class ChallengesHelper
                 $c2->status = 0;
             }
 
+
+            $c3 = json_decode($user_challenge->challenge_3);
+            $c3->start->date = Carbon::parse($c3->start->date);
+            $c3->end->date = Carbon::parse($c3->end->date);
+
+            if (Carbon::now()->between($c3->start->date, $c3->end->date)) {
+                $c3->status = 1;
+            } else {
+                $c3->status = 0;
+            }
+
+
+            $c4 = json_decode($user_challenge->challenge_4);
+            $c4->start->date = Carbon::parse($c4->start->date);
+            $c4->end->date = Carbon::parse($c4->end->date);
+
+            if (Carbon::now()->between($c4->start->date, $c4->end->date)) {
+                $c4->status = 1;
+            } else {
+                $c4->status = 0;
+            }
+
             $data['c1'] = $c1;
             $data['c2'] = $c2;
-            $data['c3'] = config('challenges.c3.challenges');
+            $data['c3'] = $c3;
+            $data['c4'] = $c4;
 
             return view('challenges.index', $data);
         }
@@ -112,8 +135,6 @@ class ChallengesHelper
         }
         $c1['days'] = $c1_days;
 
-        $user_challenge->challenge_1 = $c1;
-
         /**
          *
          * Second challenge
@@ -132,6 +153,8 @@ class ChallengesHelper
                 $request->c2_a5
             ]
         );
+
+        $c2['end']->day += ($c2['duration'] * 5);
         /**
          * Set up the end of the second challenge. We add 
          * a single day to start and end because a challenge
@@ -140,14 +163,59 @@ class ChallengesHelper
         $c2['start']->day += 1;
         $c2['end']->day += 1;
 
-        $c2['end']->day += ($c2['duration'] * 5);
+        /**
+         *
+         * Third challenge
+         *
+        **/
+        $c3 = array(
+            'start'         => clone $c2['end'],
+            'end'           => clone $c2['end'],
+            'duration'      => 5,
+            'points'        => 0,
+        );
+
+        $c3['end']->day += ($c3['duration'] * 5);
+        /**
+         * Set up the end of the second challenge. We add 
+         * a single day to start and end because a challenge
+         * starts a day after the first one ends
+        **/
+        $c3['start']->day += 1;
+        $c3['end']->day += 1;
+
+        /**
+         *
+         * Fourth challenge
+         *
+        **/
+        $c4 = array(
+            'start'         => clone $c3['end'],
+            'end'           => clone $c3['end'],
+            'duration'      => 6,
+            'points'        => 0,
+        );
+
+        $c4['end']->day += ($c4['duration'] * 5);
+        /**
+         * Set up the end of the second challenge. We add 
+         * a single day to start and end because a challenge
+         * starts a day after the first one ends
+        **/
+        $c4['start']->day += 1;
+        $c4['end']->day += 1;
 
 
         $c1 = json_encode($c1);
         $c2 = json_encode($c2);
+        $c3 = json_encode($c3);
+        $c4 = json_encode($c4);
 
         $user_challenge->challenge_1 = $c1;
         $user_challenge->challenge_2 = $c2;
+        $user_challenge->challenge_3 = $c3;
+        $user_challenge->challenge_4 = $c4;
+
         $user_challenge->challenges_set_up = 1;
         $user_challenge->save();
 

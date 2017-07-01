@@ -44,14 +44,10 @@ class WeekController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-        // We must check if week already exists in database
-        if(!Week::where('week_number', $request->week_number)->first()) {
-            Week::create($request->all());
+        
+        Week::create($request->all());
 
-            session()->flash('message', 'Week successfully created!');
-        } else {
-            session()->flash('message', "Week number {$request->week_number} already exists.");
-        }
+        session()->flash('message', 'Week successfully created!');
 
         return redirect('/weeks');
     }

@@ -40,7 +40,7 @@ class ScreeningHelper
          * Sum up the scores from multiple answers.
          * This function passes variable by reference.
         **/
-        self::handleMultipleAnswers($request, self::$fitness_score, self::$red_flag, self::$user_answers);
+        self::handleMultipleAnswers($request);
 
         /**
          * Sum up the score from waist size
@@ -76,11 +76,19 @@ class ScreeningHelper
             $level = 3;
         }
 
+
+        // We manually add answer on 13th question, if there's any
+        if(isset($request->q13_a) && !empty($request->q13_a)) {
+            self::$user_answers['q13_a'] = $request->q13_a;
+        }
         // Save the user's level
         auth()->user()->level = $level;
 
         // Save the user's answers to the pre-screening questions
         auth()->user()->screening_answers = json_encode(self::$user_answers);
+
+        // Save user's gender
+        auth()->user()->gender = $request->gender;
 
         // Mark the profile as finished
         auth()->user()->finished_profile = 1;
@@ -126,7 +134,7 @@ class ScreeningHelper
      * @ by reference to escape the hassle of returning
      * @ values to the handleScreeningTest() function
     **/
-    private static function handleMultipleAnswers(&$request, &$fitness_score, &$red_flag, &$user_answers) {
+    private static function handleMultipleAnswers($request) {
         /**
          * Handle the questions with possible multiple answers
         **/
@@ -144,28 +152,28 @@ class ScreeningHelper
         foreach ($questions_3to8 as $k=>$q) {
             if ($q[0]) {
                 array_push(
-                    $user_answers,
+                    self::$user_answers,
                     [$k+1, $q[1], $q[2]]
                 );
-                $red_flag++;
+                self::$red_flag++;
                 switch($k+1) {
                     case 3:
-                        $fitness_score += 8;
+                        self::$fitness_score += 8;
                         break;
                     case 4:
-                        $fitness_score += 6;
+                        self::$fitness_score += 6;
                         break;
                     case 5:
-                        $fitness_score += 6;
+                        self::$fitness_score += 6;
                         break;
                     case 6:
-                        $fitness_score += 5;
+                        self::$fitness_score += 5;
                         break;
                     case 7:
-                        $fitness_score += 5;
+                        self::$fitness_score += 5;
                         break;
                     case 8:
-                        $fitness_score += 4;
+                        self::$fitness_score += 4;
                         break;
                 }
             }

@@ -33,6 +33,6 @@ class CreateProgramWeekPivotTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('program_week');
     }
 }

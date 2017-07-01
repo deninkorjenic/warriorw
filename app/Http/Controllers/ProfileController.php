@@ -16,7 +16,7 @@ class ProfileController extends Controller
     {
         if(auth()->user()->finished_profile) {
             return redirect('/home');
-        } elseif(auth()->user()->role === 'admin') {
+        } elseif(auth()->user()->role == 'admin') {
             return redirect('/programs');
         }
     	return view('profile.index', ['userInfo' => ProfileHelper::getUserInfo()]);

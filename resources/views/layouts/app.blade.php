@@ -11,6 +11,8 @@
                     <li><a href="{{ url('/trainings') }}">Trainings</a></li>
                     <li><a href="{{ url('/educations') }}">Educations</a></li>
                     <li><a href="{{ url('/quizes') }}">Quizes</a></li>
+                    <li><a href="{{ url('/dashboard') }}">Admin</a></li>
+                    <li><a href="{{ url('/archive') }}">Archive</a></li>
                 </ul>
                 <ul class="side-nav" id="mobile-nav">
                     <li><a href="{{ url('/programs') }}">Programs</a></li>
@@ -19,6 +21,8 @@
                     <li><a href="{{ url('/trainings') }}">Trainings</a></li>
                     <li><a href="{{ url('/educations') }}">Educations</a></li>
                     <li><a href="{{ url('/quizes') }}">Quizes</a></li>
+                    <li><a href="{{ url('/dashboard') }}">Admin</a></li>
+                    <li><a href="{{ url('/archive') }}">Archive</a></li>
                 </ul>
             </div>
         </nav>

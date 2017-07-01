@@ -34,8 +34,12 @@ class HomeController extends Controller
         $calendar = array();
         $firstday = Carbon::parse(auth()->user()->program_start);
 
+        // We get program_json form user_programs table, this is already initialised and full program
+        $program = UserProgram::where('user_id', auth()->user()->id)->first();
+        $weeks = json_decode($program->program_json)->weeks;
+
         $n = 0;
-        for($i = 0; $i <= 15; $i++ ) {
+        for($i = 0; $i <= count($weeks); $i++ ) {
             $days = array();
             for($j=1; $j<=7; $j++) {
                 // TODO switch those two lines, used only for DEMO purpose
@@ -56,19 +60,20 @@ class HomeController extends Controller
             array_push($calendar, $days);
         }
 
-        // We get program_json form user_programs table, this is already initialised and full program
-        $program = UserProgram::where('user_id', auth()->user()->id)->first();
+        $related_weeks = explode(',', json_decode($program->program_json)->related_weeks);
 
         $data = array(
-                'created_at'    => auth()->user()->created_at,
-                'program_start' => Carbon::parse(auth()->user()->program_start),
-                'week_one'      => Carbon::parse(auth()->user()->week_one),
-                'last_day'      => Carbon::parse(auth()->user()->last_day),
-                'calendar'      => $calendar,
+                'created_at'        => auth()->user()->created_at,
+                'program_start'     => Carbon::parse(auth()->user()->program_start),
+                'week_one'          => Carbon::parse(auth()->user()->week_one),
+                'last_day'          => Carbon::parse(auth()->user()->last_day),
+                'calendar'          => $calendar,
 
-                'current_week'  => UserProgram::getCurrentWeek(),
-                'goals'         => json_decode(auth()->user()->goals),
-                'program_json'  => json_decode($program->program_json),
+                'current_week'      => UserProgram::getCurrentWeek(),
+                'goals'             => json_decode(auth()->user()->goals),
+                'program_json'      => json_decode($program->program_json),
+                'overall_points'    => UserProgram::getOverallPointsAvailable(),
+                'related_weeks'     => $related_weeks,
             );
 
         return view('summary.index', ['data' => $data]);

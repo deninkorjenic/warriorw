@@ -28,7 +28,7 @@ class CreateRevisionQuizesTable extends Migration
         if(Schema::hasTable('weeks')) {
             if(!Schema::hasColumn('weeks', 'quiz_id')) {
                 Schema::table('weeks', function(Blueprint $table) {
-                    $table->integer('quiz_id')->unsigned()->index();
+                    $table->integer('quiz_id')->unsigned()->index()->nullable();
                 });
             }
         }
@@ -41,6 +41,13 @@ class CreateRevisionQuizesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('quizes');
+        if(Schema::hasTable('weeks')) {
+            if(Schema::hasColumn('weeks', 'quiz_id')) {
+                Schema::table('weeks', function(Blueprint $table) {
+                    $table->dropColumn('quiz_id');
+                });
+            }
+        }
     }
 }

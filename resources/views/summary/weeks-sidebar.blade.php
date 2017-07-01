@@ -5,11 +5,11 @@
     </div>
       <div class="collection">
         @if(isset($data['program_json']->weeks))
-          @foreach($data['program_json']->weeks as $key => $week)
-            @if($key > $data['current_week'])
-              <div class="collection-item"">Week {{ $week->week_number }}</div>
+          @foreach($data['related_weeks'] as $relatedKey => $relatedId)
+            @if($relatedKey > $data['current_week'])
+              <div class="collection-item"">Week {{ $relatedKey }}</div>
             @else 
-              <a href="{{url('/week-'.$week->id)}}" class="collection-item"">Week {{ $week->week_number }}</a>
+              <a href="{{url('/week-'.$relatedId)}}" class="collection-item"">Week {{ $relatedKey }}</a>
             @endif
           @endforeach
         @endif

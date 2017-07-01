@@ -48,10 +48,19 @@ class ProgramController extends Controller
         $this->validate(request(), [
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'related_weeks' => 'required',
+            'related_w' => 'required|string',
         ]);
-        $program = Program::create(request(['description', 'title']));
-        $program->weeks()->attach(request('related_weeks'));
+
+        $relatedWeeks = explode(',', request()->input('related_w'));
+
+        $program = new Program;
+        $program->title = request()->title;
+        $program->description = request()->description;
+        $program->related_weeks = request()->related_w;
+        $program->save();
+        
+        $program->weeks()->attach(array_values($relatedWeeks));
+        
         session()->flash('message', 'Program successfully created');
 
         return redirect('/programs');
@@ -97,10 +106,10 @@ class ProgramController extends Controller
         $this->validate(request(), [
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'related_weeks' => 'required'
+            'related_w' => 'required|string',
         ]);
 
-        $relatedWeeks = request()->input('related_weeks');
+        $relatedWeeks = explode(',', request()->input('related_w'));
 
         $program->weeks()->sync(array_values($relatedWeeks));
         $program->update(request(['description', 'title']));
