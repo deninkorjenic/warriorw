@@ -21,7 +21,7 @@ class CreateUserProgramsTable extends Migration
                 $table->integer('current_week')->default(0);
                 $table->json('schedule')->nullable();
                 $table->string('adherence')->default('normal'); // sad, normal, happy
-                $table->integer('total_score')->nullable();
+                $table->integer('total_score')->nullable()->default(0);
 
                 $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 

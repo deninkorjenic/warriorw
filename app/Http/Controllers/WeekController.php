@@ -45,7 +45,9 @@ class WeekController extends Controller
                         ->withInput();
         }
         
-        Week::create($request->all());
+        $week = new Week;
+        $newData = $this->setNewWeekData($week);
+        $newData->save();
 
         session()->flash('message', 'Week successfully created!');
 
@@ -96,7 +98,8 @@ class WeekController extends Controller
                         ->withInput();
         }
 
-        $week->update(request(['title', 'description', 'week_number', 'maximum_points']));
+        $newData = $this->setNewWeekData($week);
+        $newData->save();
 
         session()->flash('message', 'Week successfully updated!');
 
@@ -123,9 +126,20 @@ class WeekController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'week_number' => 'bail|required|integer',
-            'maximum_points' => 'required|integer',
         ]);
 
         return $validator;
+    }
+
+    /**
+     * Method used to set new week data on update/create
+     */
+    public function setNewWeekData($week) {
+        $week->title = request()->title;
+        $week->description = request()->description;
+        $week->week_number = request()->week_number;
+        $week->maximum_points = $week->calculateMaxPoints();
+
+        return $week;
     }
 }

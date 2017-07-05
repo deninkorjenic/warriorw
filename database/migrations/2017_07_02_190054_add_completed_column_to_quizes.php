@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddRelatedWeeksToProgram extends Migration
+class AddCompletedColumnToQuizes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddRelatedWeeksToProgram extends Migration
      */
     public function up()
     {
-        Schema::table('programs', function(Blueprint $table) {
-            $table->json('related_weeks');
+        Schema::table('quizes', function(Blueprint $table) {
+            $table->boolean('completed')->nullable()->default(false);
         });
     }
 
@@ -25,8 +25,8 @@ class AddRelatedWeeksToProgram extends Migration
      */
     public function down()
     {
-        Schema::table('programs', function(Blueprint $table) {
-            $table->dropColumn('related_weeks');
+        Schema::table('quizes', function(Blueprint $table) {
+            $table->dropColumn('completed');
         });
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 
 use App\Models\Training;
 use App\Models\Week;
+use App\Models\UserProgram;
 
 class TrainingController extends Controller
 {
@@ -53,6 +54,11 @@ class TrainingController extends Controller
 
         $training = Training::create(request(['description', 'points']));
         $training->weeks()->attach(request('related_weeks'));
+        // We need to add points to each related week
+        foreach($training->weeks as $week) {
+            $week->maximum_points += request()->points;
+            $week->save();
+        }
         session()->flash('message', 'Training successfully created');
 
         return redirect('/trainings');
@@ -105,6 +111,13 @@ class TrainingController extends Controller
         $relatedWeeks = Input::get('related_weeks');
 
         $training->weeks()->sync(array_values($relatedWeeks));
+        $training->weeks()->syncWithoutDetaching(array_values($relatedWeeks));
+        // We need to add points to each related week
+        foreach($training->weeks as $week) {
+            $week->maximum_points -= $training->points;
+            $week->maximum_points += request()->points;
+            $week->save();
+        }
         $training->update(request(['description', 'points']));
 
         session()->flash('message', 'Training successfully updated.');
@@ -121,7 +134,46 @@ class TrainingController extends Controller
     public function destroy($id)
     {
         $training = Training::findOrFail($id);
+        // We need to remove points from related weeks
+        foreach($training->weeks as $week) {
+            $week->maximum_points -= $training->points;
+            $week->save();
+        }
         $training->delete();
         session()->flash('message', 'Training succesfully deleted.');
+    }
+
+    /**
+     * Method used to update training and give points to user
+     */
+    public function updateTrainingStatus()
+    {
+        $user_program = UserProgram::where('user_id', auth()->user()->id)->first();
+
+        $program_json = json_decode($user_program->program_json);
+
+        $weeks = $program_json->weeks;
+        foreach($weeks as $weekKey => $week) {
+            if($week->id == request()->week_id) {
+                $trainings = $week->trainings;
+                foreach(request()->training_ids as $training_id) {
+                    foreach ($trainings as $trainingKey => $training) {
+                        if($training->id == $training_id) {
+                            if(!$training->completed) {
+                                $user_program->total_score = (int) $user_program->total_score + (int) $training->points;
+                                
+                                $program_json->weeks[$weekKey]->trainings[$trainingKey]->completed = true;
+                                
+                                $user_program->program_json = json_encode($program_json);
+                                
+                                $user_program->update();
+                            } else {
+                                return redirect('/home');
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 
 use App\Models\Week;
 use App\Models\Education;
+use App\Models\UserProgram;
 
 class EducationController extends Controller
 {
@@ -54,6 +55,11 @@ class EducationController extends Controller
 
         $education = Education::create(request(['description', 'points', 'video_url']));
         $education->weeks()->attach(request('related_weeks'));
+        // We need to add points to each related week
+        foreach($education->weeks as $week) {
+            $week->maximum_points += request()->points;
+            $week->save();
+        }
         session()->flash('message', 'Education successfully created');
 
         return redirect('/educations');
@@ -107,6 +113,13 @@ class EducationController extends Controller
         $relatedWeeks = Input::get('related_weeks');
 
         $education->weeks()->sync(array_values($relatedWeeks));
+        $education->weeks()->syncWithoutDetaching(array_values($relatedWeeks));
+        // We need to add points to each related week
+        foreach($education->weeks as $week) {
+            $week->maximum_points -= $education->points;
+            $week->maximum_points += request()->points;
+            $week->save();
+        }
         $education->update(request(['description', 'points', 'video_url']));
 
         session()->flash('message', 'Education successfully updated.');
@@ -123,7 +136,46 @@ class EducationController extends Controller
     public function destroy($id)
     {
         $education = Education::findOrFail($id);
+        // We need to remove points from related weeks
+        foreach($education->weeks as $week) {
+            $week->maximum_points -= $education->points;
+            $week->save();
+        }
         $education->delete();
         session()->flash('message', 'Education succesfully deleted.');
+    }
+
+    /**
+     * Method used to update education and give points to user
+     */
+    public function updateEducationStatus()
+    {
+        $user_program = UserProgram::where('user_id', auth()->user()->id)->first();
+
+        $program_json = json_decode($user_program->program_json);
+
+        $weeks = $program_json->weeks;
+        foreach($weeks as $weekKey => $week) {
+            if($week->id == request()->week_id) {
+                $educations = $week->education;
+                foreach(request()->education_ids as $education_id) {
+                    foreach ($educations as $educationKey => $education) {
+                        if($education->id == $education_id) {
+                            if(!$education->watched) {
+                                $user_program->total_score = (int) $user_program->total_score + (int) $education->points;
+                                
+                                $program_json->weeks[$weekKey]->education[$educationKey]->watched = true;
+                                
+                                $user_program->program_json = json_encode($program_json);
+                                
+                                $user_program->save();
+                            } else {
+                                return redirect('/home');
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

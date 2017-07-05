@@ -51,7 +51,7 @@ class ProgramController extends Controller
             'related_w' => 'required|string',
         ]);
 
-        $relatedWeeks = explode(',', request()->input('related_w'));
+        $relatedWeeks = explode(', ', request()->input('related_w'));
 
         $program = new Program;
         $program->title = request()->title;
@@ -109,9 +109,10 @@ class ProgramController extends Controller
             'related_w' => 'required|string',
         ]);
 
-        $relatedWeeks = explode(',', request()->input('related_w'));
+        $relatedWeeks = explode(', ', request()->input('related_w'));
 
         $program->weeks()->sync(array_values($relatedWeeks));
+        $program->weeks()->syncWithoutDetaching(array_values($relatedWeeks));
         $program->update(request(['description', 'title']));
 
         session()->flash('message', 'Program successfully updated.');
@@ -133,21 +134,23 @@ class ProgramController extends Controller
     }
 
 
-    public function getWeek($number) {
+    public function getWeek($weekId) {
 
     	$program = UserProgram::where('user_id', auth()->user()->id)->first();
         $week = '';
+        $preWeek = false;
         foreach(json_decode($program->program_json)->weeks as $w) {
-            if($w->id == $number) {
+            if($w->id == $weekId) {
                 $week = $w;
             }
         }
-
-        $quizes = Week::find($week->id)->quizes()->get();
-
-    	$current_week_start = Carbon::parse(auth()->user()->program_start)->addWeek($number);
+        // We need to determine if this is pre-start week, week 0
+        // we get first value from related_weeks in program, if it's same as $weekId it is
+        if(json_decode($program->program_json)->related_weeks[0] == $week->id) {
+            $preWeek = true;
+        }
 	    
-	    return view('weeks.week', ['week' => $week, 'quizes' => $quizes]);
+	    return view('weeks.week', ['week' => $week, 'preWeek' => $preWeek]);
 
     }
 
@@ -162,7 +165,7 @@ class ProgramController extends Controller
             }
         }
     	
-        $quizes = Week::find($week->id)->quizes()->get();
+        $quizes = $week->quizes;
     	return view('weeks.quiz', ['week' => $week,'quizes' => $quizes]);
     }
 

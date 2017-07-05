@@ -2,9 +2,16 @@
     <td>{{ $key+1 }}.</td>
     <td>{{ $task->description }}</td>
     <td>
-        <form action="#">
-            <input type="checkbox" class="filled-in" name="task-{{ $key+1 }}" id="task-{{ $key+1 }}" @if(isset($task->pivot->completed) && $task->pivot->completed != 0) checked="checked" checked @endif />
-            <label for="task-{{ $key+1 }}"></label>
-        </form>
+        <input 
+            type="checkbox" 
+            class="filled-in task-checkbox"
+            data-id="{{ $task->id }}"
+            name="task-{{ $key+1 }}" 
+            id="task-{{ $key+1 }}" 
+            @if($task->completed)
+                checked
+                disabled
+            @endif />
+        <label for="task-{{ $key+1 }}"></label>
     </td>
 </tr>

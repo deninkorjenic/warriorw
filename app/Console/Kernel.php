@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\SendWeeklyEmail::class,
     ];
 
     /**
@@ -24,8 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('weeklyemail:send')->weekly()->mondays()->at('15:00')->withoutOverlapping()->evenInMaintenanceMode()->appendOutputTo('schedule-log.log');
     }
 
     /**

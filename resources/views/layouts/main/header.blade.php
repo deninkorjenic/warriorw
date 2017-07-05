@@ -15,6 +15,7 @@
     {!! MaterializeCSS::include_css() !!}
     <link href="{{ url('css/app.css') }}" rel="stylesheet">
     <link href="{{ url('css/font-awesome.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Scripts -->
     <script>

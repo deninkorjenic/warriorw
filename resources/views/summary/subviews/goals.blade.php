@@ -7,22 +7,22 @@
         <span class="card-title">My goals</span>
         <div class="input-field">
           <i class="fa fa-thumbs-up prefix" aria-hidden="true"></i>
-          <input id="goal_1" type="text" name="goal_1" placeholder="Enter your goal here" value="{{ $data['goals'][0] }}">
+          <input id="goal_1" type="text" name="goal_1" placeholder="Enter your goal here" value="{{ $goals[0] }}">
           <label for="goal_1" data-error="wrong" data-success="right">Your first goal</label>
         </div>
         <div class="input-field">
           <i class="fa fa-thumbs-up prefix" aria-hidden="true"></i>
-          <input id="goal_2" type="text" name="goal_2" placeholder="Enter your goal here" value="{{ $data['goals'][1] }}">
+          <input id="goal_2" type="text" name="goal_2" placeholder="Enter your goal here" value="{{ $goals[1] }}">
           <label for="goal_2" data-error="wrong" data-success="right">Your second goal</label>
         </div>
         <div class="input-field">
           <i class="fa fa-thumbs-up prefix" aria-hidden="true"></i>
-          <input id="goal_3" type="text" name="goal_3" placeholder="Enter your goal here" value="{{ $data['goals'][2] }}">
+          <input id="goal_3" type="text" name="goal_3" placeholder="Enter your goal here" value="{{ $goals[2] }}">
           <label for="goal_3" data-error="wrong" data-success="right">Your third goal</label>
         </div>
         <div class="input-field">
           <i class="fa fa-thumbs-up prefix" aria-hidden="true"></i>
-          <input id="goal_4" type="text" name="goal_4" placeholder="Enter your goal here" value="{{ $data['goals'][3] }}">
+          <input id="goal_4" type="text" name="goal_4" placeholder="Enter your goal here" value="{{ $goals[3] }}">
           <label for="goal_4" data-error="wrong" data-success="right">Your fourth goal</label>
         </div>  
       </div>

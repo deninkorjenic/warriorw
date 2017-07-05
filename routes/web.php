@@ -56,6 +56,15 @@ Route::middleware(['auth', 'fullprofile'])->group(function() {
     // TODO: This will be changed to CRUD probably
     Route::get('/challenges', 'ChallengesController@index');
     Route::post('/challenges', 'ChallengesController@setUpChallenges');
+
+    // Route used to update task status
+    Route::post('/update-task', 'TaskController@updateTaskStatus');
+    // Route used to update training status
+    Route::post('/update-training', 'TrainingController@updateTrainingStatus');
+    // Route used to update education status
+    Route::post('/update-education', 'EducationController@updateEducationStatus');
+    // Route used to update quiz status
+    Route::post('/update-quiz', 'QuizController@updateQuizStatus');
 });
 Route::middleware('auth')->group(function() {
     Route::get('/dashboard', 'AdminController@getDashboard');

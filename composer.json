@@ -6,10 +6,11 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "doctrine/dbal": "^2.5",
         "dougsisk/laravel-country-state": "^1.2",
         "laravel/framework": "5.4.*",
-        "skydiver/laravel-materialize-css": "dev-master",
-        "laravel/tinker": "~1.0"
+        "laravel/tinker": "~1.0",
+        "skydiver/laravel-materialize-css": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

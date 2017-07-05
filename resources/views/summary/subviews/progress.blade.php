@@ -18,7 +18,7 @@
       </thead>
 
       <tbody>
-        @foreach($data['calendar'] as $key=>$week)
+        @foreach($calendar as $key=>$week)
           <tr>
             <td>{{ $key }}</td>
             @foreach($week as $day)

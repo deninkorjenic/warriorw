@@ -5,10 +5,10 @@
   <div class="col s12">
     <div class="row">
       <div class="col s12">
-        <h4>Weekly Overview</h4>
+        <h4 class="week-id" data-id="{{ $week->id }}">Weekly Overview</h4>
       </div>
       <div class="col s12">
-        @if(!$week->week_number == 0)
+        @if(!$preWeek)
           <a href="{{ url('/quiz-') . $week->id }}" class="btn btn-large waves-effect">Revision Quiz</a>
           <a href="{{ url('/food-diary') }}" class="btn btn-large waves-effect">4 day food diary</a>
         @endif
@@ -20,6 +20,7 @@
       <div class="col s12">
         <div class="card">
           <div class="card-content">
+            <form method="POST" action="{{ url('/update-education') }}" class="update-education">
               <table class="highlight responsive">
                 <span class="card-title">
                   Education
@@ -29,7 +30,7 @@
                       <th>#</th>
                       <th>Details</th>
                       <th>Video</th>
-                      <th class="right-align">Watched</th>
+                      <th>Watched</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -37,10 +38,11 @@
                       @include('weeks.subviews.education', ['key' => $key, 'edu' => $edu])
                     @endforeach
                 </tbody>
-              </table> 
-          </div>
-          <div class="card-action right-align">
-            <a href="#" onclick="document.getElementById('my_goals').submit();">Update</a>
+              </table>
+              <div class="card-action right-align">
+                <a class="waves-effect waves-teal btn-flat" onclick="updateEducationStatus();">Update</a>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -62,66 +64,61 @@
         <div class="col s12">
           <div class="card">
             <div class="card-content">
-              <table class="highlight">
-                <span class="card-title">
-                  Tasks
-                </span>
-                <thead>
-                  <tr>
-                      <th>#</th>
-                      <th>Details</th>
-                      <th>Done</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @foreach($week->tasks as $key=>$task)
-                    @include('weeks.subviews.tasks', ['key' => $key, 'task' => $task])
-                  @endforeach
-                </tbody>
-              </table>
-            </div>
-            <div class="card-action right-align">
-              <a href="#" onclick="document.getElementById('my_goals').submit();">Update</a>
+              <form method="POST" action="{{ url('/update-task') }}"" class="update-task">
+                <table class="highlight">
+                  <span class="card-title">
+                    Tasks
+                  </span>
+                  <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Details</th>
+                        <th>Done</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($week->tasks as $key=>$task)
+                      @include('weeks.subviews.tasks', ['key' => $key, 'task' => $task])
+                    @endforeach
+                  </tbody>
+                </table>
+                <div class="card-action right-align">
+                  <a class="waves-effect waves-teal btn-flat" onclick="updateTaskStatus();">Update</a>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
     @endif
-    @if(isset($week->{'Training plan'}))
+    @if(isset($week->trainings))
       <div class="row">
         <div class="col s12">
           <div class="card">
             <div class="card-content">
-              <table class="highlight">
-                <span class="card-title">
-                  Training plan
-                </span>
-                <thead>
-                  <tr>
-                      <th>Day</th>
-                      <th>Details</th>
-                      <th>Done</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @php($days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday', 'Sunday'])
-                  @foreach($week->{'Training plan'} as $k=>$t)
+              <form method="POST" action="{{ url('/update-training') }}" class="update-training">
+                <table class="highlight">
+                  <span class="card-title">
+                    Training plan
+                  </span>
+                  <thead>
                     <tr>
-                      <td>{{ $days[$k] }}</td>
-                      <td>{{$t[0]}}</td>
-                      <td>
-                        <form action="#" class="right-align">
-                          <input type="checkbox" class="filled-in" name="training-{{$k+1}}" id="training-{{$k+1}}" @if($t[1]) checked="checked" checked @endif />
-                          <label for="training-{{$k+1}}"></label>
-                        </form>
-                      </td>
+                        <th>Day</th>
+                        <th>Details</th>
+                        <th>Done</th>
                     </tr>
-                  @endforeach
-                </tbody>
-              </table> 
-            </div>
-            <div class="card-action right-align">
-              <a href="#" onclick="document.getElementById('my_goals').submit();">Update</a>
+                  </thead>
+                  <tbody>
+                    @php($days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday', 'Sunday'])
+                    @foreach($week->trainings as $day=>$training)
+                      @include('weeks.subviews.training')
+                    @endforeach
+                  </tbody>
+                </table>
+                <div class="card-action right-align">
+                  <a class="waves-effect waves-teal btn-flat" onclick="updateTrainingStatus();">Update</a>
+                </div>
+              </form>
             </div>
           </div>
         </div>

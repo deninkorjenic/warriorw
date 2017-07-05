@@ -8,6 +8,7 @@ use App\Models\User;
 use CountryState;
 use App\Models\UserProgram;
 use App\Models\Week;
+use App\Models\Subscriber;
 
 class ProfileHelper
 {
@@ -557,7 +558,7 @@ class ProfileHelper
         **/
 
         // We get new instance of program
-        $program = Program::with(['weeks.tasks', 'weeks.education', 'weeks.trainings'])->first();
+        $program = Program::with(['weeks.tasks', 'weeks.education', 'weeks.trainings', 'weeks.quizes'])->first();
         // TODO: changed database columns, we need to see which one will stay and which one will not and change code based on that
         $user_program = new UserProgram;
         $user_program->user_id = auth()->user()->id;
@@ -573,7 +574,7 @@ class ProfileHelper
 
         $dt = auth()->user()->program_start;
         $last_day = new $dt;
-        $last_day->day = $last_day->day + $weeks;
+        $last_day->day += $weeks;
 
         $properties = new \ArrayObject();
 
@@ -601,5 +602,29 @@ class ProfileHelper
         ];
 
         return $userInfo;
+    }
+
+    /**
+     * We need to keep list of subscribed users, which want to receive emails from us
+     */
+    public static function addSubscriber($userId, $email)
+    {
+        // We get unique token for each user
+        $token = bin2hex(random_bytes(80));
+        if(count(Subscriber::where('user_id', $userId)->first()) == 0 && count(Subscriber::where('email', $email)->first()) == 0) {
+            return (Subscriber::create(['user_id' => $userId, 'email' => $email, 'token' => $token]));
+        }
+    }
+
+    /**
+     * Method used to create unsubscribe link
+     */
+    public static function getUnsubsrcibeLink($userId)
+    {
+        $sub = Subscriber::where('user_id', $userId)->first();
+
+        if(count($sub) == 1) {
+            return url("/unsubscribe/{$sub->id}/{$sub->user_id}/{$sub->email}/{$sub->token}");
+        }
     }
 }

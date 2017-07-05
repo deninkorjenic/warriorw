@@ -56,7 +56,7 @@
                                         name="related_week[]"
                                         value="{{$week->id}}"
                                     />
-                                    <label for="week-{{$week->id}}">{{ week->title }}</label>
+                                    <label for="week-{{$week->id}}">{{ $week->title }}</label>
                                 </td>
                             </tr>
                         @endforeach

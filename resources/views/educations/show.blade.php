@@ -12,7 +12,13 @@
 
     <a href="{{ url('/educations') . '/' . $education->id . '/edit' }}" class="btn">Edit Education</a>
 
-    <a href="#" id="educations" data-id="{{ $education->id }}" data-token="{{ csrf_token() }}" class="btn js-delete">Delete</a>
+    <a href="#" 
+        id="educations" 
+        data-id="{{ $education->id }}" 
+        data-token="{{ csrf_token() }}"
+        data-url="{{ url('/educations') . '/' . $education->id }}"
+        data-redirect-url="{{ url('/educations') }}"
+        class="btn js-delete">Delete</a>
 
     </div>
 @endsection

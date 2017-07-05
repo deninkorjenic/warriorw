@@ -120,4 +120,16 @@ class Week extends Model
 
         return count($result->first()) > 0;
     }
+
+    /**
+     * Method used to count max available points based on tasks, educations, trainings and quizes
+     */
+    public function calculateMaxPoints() {
+        $taskPoints = $this->tasks()->sum('points');
+        $educationPoints = $this->education()->sum('points');
+        $trainingPoints = $this->trainings()->sum('points');
+        $quizPoints = $this->quizes()->sum('points');
+
+        return ($taskPoints + $educationPoints + $trainingPoints + $quizPoints);
+    }
 }
