@@ -109,6 +109,46 @@ function updateQuizStatus()
     }
 }
 
+/**
+ * Method used to get user's notifications
+ */
+function getUserNotifications()
+{
+    $.ajax({
+        url: "notifications",
+        dataType: "json",
+        method: "GET",
+        success: function(response)
+        {
+            if(response.length > 0) {
+                for(i = 0; i < response.length; i++) {
+                    if(response[i].type == "App\\Notifications\\NewWeekStarted") {
+                        if(response[i].data.message != "undefined") {
+                            var toast = "<span data-id='" + response[i].id + "'>" + response[i].data.message + "</span><i class='material-icons toast-close'>close</i>"
+                            Materialize.toast(toast);
+                        }
+                    }
+                }
+            }
+        }
+    })
+}
+/**
+ * Method used to close notification toast
+ */
+function closeNotification(notification)
+{
+    var toast = $(notification).children("span");
+    var id = toast.data("id");
+    $.ajax({
+        url: "notification/" + id,
+        method: "GET",
+    })
+    $(notification).fadeOut(function(){
+        $(notification).remove();
+    });
+}
+
 // Generic delete button
 // Below is how an example delete button should look like
 // <a href="#" id="tasks" data-id="{{ $task->id }}" data-token="{{ csrf_token() }}" class="btn js-delete">Delete</a>
@@ -218,4 +258,10 @@ $(document).ready(function() {
 
         openEducationModal(modal, video_url);
     });
+
+
+    getUserNotifications();
+    $(document).on("click", "#toast-container .toast", function() {
+        closeNotification(this);
+    })
 })

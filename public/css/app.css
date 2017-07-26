@@ -191,3 +191,11 @@ body.auth .wrapper-form form a {
     font-size: 20px;
     text-align: center;
 }
+
+#toast-container .toast {
+    cursor: pointer;
+}
+
+.toast-close {
+    color: #e53935;
+}

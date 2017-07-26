@@ -161,7 +161,6 @@ return [
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
-        Skydiver\LaravelMaterializeCSS\MaterializeCSSServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         DougSisk\CountryState\CountryStateServiceProvider::class,
 
@@ -227,7 +226,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'MaterializeCSS' => Skydiver\LaravelMaterializeCSS\MaterializeCSS::class,
 
     ],
 

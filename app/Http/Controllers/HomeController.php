@@ -9,6 +9,8 @@ use App\Helpers\SummaryHelper;
 
 use App\Helpers\ProfileHelper;
 
+use App\Notifications\NewWeekStarted;
+
 class HomeController extends Controller
 {
 

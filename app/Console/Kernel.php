@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\SendWeeklyEmail::class,
+        Commands\NewWeekNotify::class,
     ];
 
     /**
@@ -25,6 +26,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('weeklyemail:send')->weekly()->mondays()->at('15:00')->withoutOverlapping()->evenInMaintenanceMode()->appendOutputTo('schedule-log.log');
+        $schedule->command('newweeknotify:notify')->weekly()->mondays()->at('15:00')->withoutOverlapping()->evenInMaintenanceMode()->appendOutputTo('schedule-log.log');
     }
 
     /**

@@ -10,7 +10,6 @@
         "dougsisk/laravel-country-state": "^1.2",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "skydiver/laravel-materialize-css": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

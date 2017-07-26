@@ -166,7 +166,7 @@ class QuizController extends Controller
         // We need to list all weeks 'till we find requested one
         foreach($program_json->weeks as $weekKey => $week) {
             if($week->id == request()->week_id) {
-                // Now we need to list all quizes, comperis them with user answers and calculate response
+                // Now we need to list all quizes, comapre them with user answers and calculate response
                 foreach($week->quizes as $quizKey => $quiz) {
                     foreach(request()->quizes as $requestQuiz) {
                         if($quiz->id == $requestQuiz['id']) {

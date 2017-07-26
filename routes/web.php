@@ -65,6 +65,10 @@ Route::middleware(['auth', 'fullprofile'])->group(function() {
     Route::post('/update-education', 'EducationController@updateEducationStatus');
     // Route used to update quiz status
     Route::post('/update-quiz', 'QuizController@updateQuizStatus');
+    // Route used to view all user notifications
+    Route::get('/notifications/{markAsRead?}', 'GetNotification@getNotifications')->where('markAsRead', '[0-1]+');
+    // Route used to mark notification as read
+    Route::get('/notification/{notificationId}', 'GetNotification@markAsRead');
 });
 Route::middleware('auth')->group(function() {
     Route::get('/dashboard', 'AdminController@getDashboard');
