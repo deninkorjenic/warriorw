@@ -48,7 +48,7 @@ class UserProgram extends Model
         // If current week is not first week, we need to get points for each week before current
         if((int) $current_week != 0) {
             $counter = 0;
-            for($counter; $counter < (int) $current_week; $counter++) {
+            for($counter; $counter <= (int) $current_week; $counter++) {
                 foreach($program_json->weeks as $week) {
                     if($week->id == $related_weeks[$counter]) {
                         $points += $week->maximum_points;
