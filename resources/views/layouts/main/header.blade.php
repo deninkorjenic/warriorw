@@ -14,9 +14,9 @@
     <!-- Styles -->
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
-    <link href="{{ url('css/app.css') }}" rel="stylesheet">
     <link href="{{ url('css/font-awesome.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{{ url('css/app.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>

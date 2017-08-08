@@ -1,22 +1,31 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
 class Program extends Model
 {
-
-    protected $fillable = [
-        'title',
-        'description',
-    ];
-
+    /**
+     * @var array
+     */
     protected $casts = [
         'related_weeks' => 'array',
     ];
 
-    public function weeks() {
+    /**
+     * @var array
+     */
+    protected $fillable = [
+        'title',
+        'description',
+        'related_weeks',
+    ];
+
+    /**
+     * @return mixed
+     */
+    public function weeks()
+    {
         return $this->belongsToMany(Week::class);
     }
 }

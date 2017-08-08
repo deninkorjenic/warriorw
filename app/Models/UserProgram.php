@@ -1,79 +1,150 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
-
 use Carbon\Carbon;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 
 class UserProgram extends Model
 {
-
+    /**
+     * @var array
+     */
     protected $fillable = [
         'user_id',
         'program_json',
     ];
-    
-    public static function getCurrentWeek($userId = false) {
-        if($userId) {
-            $program_start = Carbon::parse(User::find($userId)->program_start);
-        } else {
-            $program_start = Carbon::parse(auth()->user()->program_start);
-        }
 
-        $today = $program_start->diffInDays($program_start->copy()->addDay(16));
-        // $today = $program_start->diffInDays(Carbon::now());
-
-        $current_week = $today/7;
-        if (($current_week - (int)$current_week) != 0  && ($current_week - (int)$current_week) > 1) {
-            $current_week = (int)$current_week + 1;
-        } else if ($current_week < 1) {
-            $current_week = 0;
-        }
-        return $current_week;
-    }
-
-    public static function getOverallPointsAvailable()
+    /**
+     * Method returns current user's points
+     *
+     * @param  int $id     User's id
+     * @return int Current user's points
+     */
+    public static function getCurrentPoints($id = false)
     {
-        $current_week = self::getCurrentWeek();
 
-        $program = self::where('user_id', auth()->user()->id)->first();
-
-        $program_json = json_decode($program->program_json);
-
-        $points = 0;
-
-        $related_weeks = explode(', ', $program_json->related_weeks);
-        // If current week is not first week, we need to get points for each week before current
-        if((int) $current_week != 0) {
-            $counter = 0;
-            for($counter; $counter <= (int) $current_week; $counter++) {
-                foreach($program_json->weeks as $week) {
-                    if($week->id == $related_weeks[$counter]) {
-                        $points += $week->maximum_points;
-                    }
-                }
-            }
+        if ($id) {
+            $program = self::where('user_id', $id)->first();
         } else {
-            foreach($program_json->weeks as $week) {
-                if($week->id == $related_weeks[0]) {
-                    $points += $week->maximum_points;
-                }
-            }
+            $program = self::where('user_id', auth()->user()->id)->first();
         }
-        return $points;
-    }
-
-    public static function getCurrentPoints()
-    {
-        $program = self::where('user_id', auth()->user()->id)->first();
 
         return (int) $program->total_score;
     }
 
-    public static function getUsersProgram($userId)
+    /**
+     * Method used to find current user's week
+     *
+     * @param  int $id     User's id
+     * @return int Current user's week
+     */
+    public static function getCurrentWeek($id = false)
     {
-        
+
+        if ($id) {
+
+            $program_start = Carbon::parse(User::find($id)->program_start);
+
+        } else {
+
+            $program_start = Carbon::parse(auth()->user()->program_start);
+        }
+
+        /**
+         * We use this for demo purpose
+         */
+
+        if (env('APP_ENV') == 'local') {
+
+            // For demo purpose we always return 3
+            $current_week = $program_start->diffInWeeks($program_start->copy()->addWeeks(3));
+
+        } else {
+
+            /**
+             * We need to check first if program is finished
+             */
+
+            if ($id) {
+
+                if (\Helpers::isProgramFinished($id)) {
+                    $current_week = $program_start->diffInWeeks(Carbon::parse(User::find($id)->last_day));
+                } else {
+                    $current_week = $program_start->diffInWeeks(Carbon::now());
+                }
+
+            } else {
+
+                if (\Helpers::isProgramFinished()) {
+                    $current_week = $program_start->diffInWeeks(Carbon::parse(auth()->user()->last_day));
+                } else {
+                    $current_week = $program_start->diffInWeeks(Carbon::now());
+                }
+
+            }
+
+        }
+
+        return $current_week;
     }
+
+    /**
+     * Method used to count overall points available on summery page
+     *
+     * @param  int $id     User id
+     * @return int Overall points available
+     */
+    public static function getOverallPointsAvailable($id = false)
+    {
+        $current_week = self::getCurrentWeek();
+
+        if ($id) {
+            $program = self::where('user_id', $id)->first();
+        } else {
+            $program = self::where('user_id', auth()->user()->id)->first();
+        }
+
+        $program_json = json_decode($program->program_json);
+
+        // We always need to reset points
+        $points = 0;
+
+        $related_weeks = explode(', ', $program_json->related_weeks);
+
+        /**
+         * If current week is not first week (actually that's week 0, pre start week), we need to get points for each week before current
+         */
+
+        if ((int) $current_week > 0) {
+
+            for ($counter = 0; $counter < (int) $current_week; $counter++) {
+
+                foreach ($program_json->weeks as $week) {
+
+                    if ($week->id == $related_weeks[$counter]) {
+
+                        $points += $week->maximum_points;
+                    }
+
+                }
+
+            }
+
+        } else {
+
+            foreach ($program_json->weeks as $week) {
+
+                if ($week->id == $related_weeks[0]) {
+
+                    $points += $week->maximum_points;
+                }
+
+            }
+
+        }
+
+        return $points;
+    }
+
 }

@@ -25,24 +25,10 @@
             </thead>
 
             <tbody>
-            @foreach($user as $u) 
-              <tr>
-                <td>{{ $u->name }}</td>             
-               {{--  @if ($u->finished_profile = 0) 
-                  <td>No</td>
-                @else
-                  <td>Yes</td>
-                @endif  --}}
-                <td>{{ $u->email }}</td>
-                <td>1</td>
-                <td>{{ $u->mobile_number }}</td>
-                <td>{{ $u->program_start }}</td>
-                <td>{{ $u->last_day }}</td>
-                <td>3</td>
-                <td><i class="fa fa-smile-o fa-2x" aria-hidden="true"></i></td>
-                <td>6/100</td>
-                <td>10%</td>
-              </tr>
+            @foreach($users as $user)
+              @if($user->finished_profile == 1 && $user->role !== 'admin')
+                @include('admin.partials.user')
+              @endif
             @endforeach
 
             </tbody>

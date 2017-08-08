@@ -42,20 +42,6 @@ if (path == '/register' || path == '/warriorw/public/register') {
 			$('#heart').val($('#heart_slider').val());
 		});
 
-		$('#unit').change(function(){
-			if ($(this).val() == 'cm') {
-				$('.setSlider').html('<label>What is your waist circumference (cm)?</label><input type="range" id="waist_slider" name="waist_slider" min="60" max="140" step="0.5" />');
-				$('#waist_slider').change(function(){
-					$('#waist').val($('#waist_slider').val());
-				});				
-			} else {
-				$('.setSlider').html('<label>What is your waist circumference (in)?</label><input type="range" id="waist_slider" name="waist_slider" min="23.5" max="55" step="0.25" />');
-				$('#waist_slider').change(function(){
-					$('#waist').val($('#waist_slider').val());
-				});				
-			}
-		})
-
 		$('.q3 input[type=checkbox]').change(function(){
 			$('.q3 .input-field').toggleClass('hidden');
 		});
